@@ -1,0 +1,56 @@
+package org.jboss.xavier.analytics.rules;
+
+import java.lang.Number;
+import org.jboss.xavier.analytics.pojo.support.PricingDataModel;
+import org.jboss.xavier.analytics.pojo.output.InitialSavingsEstimationReportModel
+import org.jboss.xavier.analytics.pojo.output.EnvironmentModel
+import org.jboss.xavier.analytics.pojo.output.SourceRampDownCostsModel;
+
+import function org.jboss.xavier.analytics.functions.HelperFunctions.round;
+
+dialect "java"
+agenda-group "SourceRampDownCosts"
+lock-on-active true
+
+rule "SourceRampDownCostsRules"
+    when
+        pricing : PricingDataModel( sourceListValue != null , sourceDiscountPercentage != null , sourceMaintenancePercentage != null )
+        report : InitialSavingsEstimationReportModel(environmentModel != null)
+    then
+        SourceRampDownCostsModel sourceRampDownCostsModel = new SourceRampDownCostsModel();
+        EnvironmentModel environment = report.getEnvironmentModel();
+        //Year1
+        sourceRampDownCostsModel.setYear1ServersOffSource(environment.getYear1Hypervisor().doubleValue());
+        sourceRampDownCostsModel.setYear1SourceActiveLicense((environment.getHypervisors() * 1.0) - environment.getYear1Hypervisor());
+        sourceRampDownCostsModel.setYear1SourcePaidMaintenance(environment.getHypervisors() * 1.0);
+        sourceRampDownCostsModel.setYear1SourceMaintenancePerServerValue(
+                (pricing.getSourceListValue() * (1 - pricing.getSourceDiscountPercentage())) * pricing.getSourceMaintenancePercentage() * 2);
+        sourceRampDownCostsModel.setYear1SourceMaintenanceTotalValue(
+                round(sourceRampDownCostsModel.getYear1SourcePaidMaintenance() * sourceRampDownCostsModel.getYear1SourceMaintenancePerServerValue())*1.0);
+        //Year2
+        sourceRampDownCostsModel.setYear2ServersOffSource(environment.getYear1Hypervisor().doubleValue() + environment.getYear2Hypervisor());
+        sourceRampDownCostsModel.setYear2SourceActiveLicense(
+                (environment.getHypervisors() * 1.0) - environment.getYear1Hypervisor() - environment.getYear2Hypervisor());
+        sourceRampDownCostsModel.setYear2SourcePaidMaintenance(
+                (environment.getYear2Hypervisor()==null||environment.getYear2Hypervisor().intValue()==0)?0:environment.getHypervisors() * 1.0);
+        sourceRampDownCostsModel.setYear2SourceMaintenancePerServerValue(
+                (sourceRampDownCostsModel.getYear1SourceMaintenancePerServerValue() * (1 + pricing.getSourceMaintenanceGrowthPercentage())));
+        sourceRampDownCostsModel.setYear2SourceMaintenanceTotalValue(
+                round(sourceRampDownCostsModel.getYear2SourcePaidMaintenance() * sourceRampDownCostsModel.getYear2SourceMaintenancePerServerValue())*1.0);
+        //Year3
+        sourceRampDownCostsModel.setYear3ServersOffSource(
+                environment.getYear1Hypervisor().doubleValue() + environment.getYear2Hypervisor() + environment.getYear3Hypervisor());
+        sourceRampDownCostsModel.setYear3SourceActiveLicense(
+                (environment.getHypervisors() * 1.0) - environment.getYear1Hypervisor() - environment.getYear2Hypervisor() - environment.getYear3Hypervisor());
+        sourceRampDownCostsModel.setYear3SourcePaidMaintenance(
+                (environment.getYear3Hypervisor()==null||environment.getYear3Hypervisor().intValue()==0)?0:environment.getHypervisors() * 1.0);
+        sourceRampDownCostsModel.setYear3SourceMaintenancePerServerValue(
+                (sourceRampDownCostsModel.getYear2SourceMaintenancePerServerValue() * (1 + pricing.getSourceMaintenanceGrowthPercentage())));
+        sourceRampDownCostsModel.setYear3SourceMaintenanceTotalValue(
+                round(sourceRampDownCostsModel.getYear3SourcePaidMaintenance() * sourceRampDownCostsModel.getYear3SourceMaintenancePerServerValue())*1.0);
+
+        modify(report)
+        {
+            setSourceRampDownCostsModel(sourceRampDownCostsModel)
+        }
+end
