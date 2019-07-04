@@ -2,6 +2,7 @@ package org.jboss.xavier.analytics.test;
 
 import org.jboss.xavier.analytics.pojo.output.EnvironmentModel;
 import org.jboss.xavier.analytics.pojo.output.InitialSavingsEstimationReportModel;
+import org.jboss.xavier.analytics.pojo.output.SourceCostsModel;
 import org.jboss.xavier.analytics.pojo.output.SourceRampDownCostsModel;
 import org.jboss.xavier.analytics.pojo.support.PricingDataModel;
 
@@ -51,9 +52,13 @@ public class SourceRampDownCostsTest extends BaseTest
         environmentModel.setYear1Hypervisor(300);
         environmentModel.setYear2Hypervisor(100);
         environmentModel.setYear3Hypervisor(100);
-        environmentModel.setGrowthRatePercentage(0.05);
+
+        SourceCostsModel sourceCosts = new SourceCostsModel();
+        sourceCosts.setSourceMaintenanceValue(350.0);
+
         InitialSavingsEstimationReportModel reportModel = new InitialSavingsEstimationReportModel();
         reportModel.setEnvironmentModel(environmentModel);
+        reportModel.setSourceCostsModel(sourceCosts);
         // added to the facts Map
         facts.put("reportModel", reportModel);
 
@@ -87,9 +92,26 @@ public class SourceRampDownCostsTest extends BaseTest
         // Check that the object has exactly the fields that the rule tested should add/change
         InitialSavingsEstimationReportModel report = reports.get(0);
         SourceRampDownCostsModel sourceRampDownCostsModel = report.getSourceRampDownCostsModel();
-        Assert.assertEquals(349500, sourceRampDownCostsModel.getYear1SourceMaintenanceTotalValue(), 0);
-        Assert.assertEquals(366975, sourceRampDownCostsModel.getYear2SourceMaintenanceTotalValue(), 0);
-        Assert.assertEquals(385324, sourceRampDownCostsModel.getYear3SourceMaintenanceTotalValue(), 0);
+
+        Assert.assertEquals(300, sourceRampDownCostsModel.getYear1ServersOffSource().intValue());
+        Assert.assertEquals(400, sourceRampDownCostsModel.getYear2ServersOffSource().intValue());
+        Assert.assertEquals(500, sourceRampDownCostsModel.getYear3ServersOffSource().intValue());
+
+        Assert.assertEquals(200, sourceRampDownCostsModel.getYear1SourceActiveLicense().intValue());
+        Assert.assertEquals(100, sourceRampDownCostsModel.getYear2SourceActiveLicense().intValue());
+        Assert.assertEquals(0, sourceRampDownCostsModel.getYear3SourceActiveLicense().intValue());
+
+        Assert.assertEquals(500, sourceRampDownCostsModel.getYear1SourcePaidMaintenance().intValue());
+        Assert.assertEquals(500, sourceRampDownCostsModel.getYear2SourcePaidMaintenance().intValue());
+        Assert.assertEquals(500, sourceRampDownCostsModel.getYear3SourcePaidMaintenance().intValue());
+
+        Assert.assertEquals(700, sourceRampDownCostsModel.getYear1SourceMaintenancePerServerValue(), 0);
+        Assert.assertEquals(735, sourceRampDownCostsModel.getYear2SourceMaintenancePerServerValue(), 0);
+        Assert.assertEquals(772, sourceRampDownCostsModel.getYear3SourceMaintenancePerServerValue(), 0);
+
+        Assert.assertEquals(350000, sourceRampDownCostsModel.getYear1SourceMaintenanceTotalValue(), 0);
+        Assert.assertEquals(367500, sourceRampDownCostsModel.getYear2SourceMaintenanceTotalValue(), 0);
+        Assert.assertEquals(386000, sourceRampDownCostsModel.getYear3SourceMaintenanceTotalValue(), 0);
     }
 }
 
