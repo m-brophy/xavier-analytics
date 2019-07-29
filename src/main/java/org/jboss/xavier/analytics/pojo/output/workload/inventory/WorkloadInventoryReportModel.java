@@ -19,6 +19,10 @@ public class WorkloadInventoryReportModel
 {
     static final long serialVersionUID = 1L;
 
+    public static final String MORE_THAN_4_NICS_FLAG_NAME = ">4 vNICs";
+    public static final String RDM_DISK_FLAG_NAME = "RDM";
+    public static final String SHARED_DISK_FLAG_NAME = "Shared Disk";
+
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "WORKLOADINVENTORYREPORTMODEL_ID_GENERATOR")
     private Long id;
