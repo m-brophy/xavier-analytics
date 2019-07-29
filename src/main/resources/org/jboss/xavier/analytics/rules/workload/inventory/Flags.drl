@@ -6,37 +6,34 @@ import java.util.HashSet;
 
 dialect "java"
 agenda-group "Flags"
-auto-focus true
+lock-on-active true
 
-rule "Flags"
+rule "Flag_Nics"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
             nicsCount != null,
-            hasRdmDisk != null
-            //vmDiskFilenames != null
+            nicsCount > 4
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
-        HashSet flags = new HashSet<>();
-
-        if (vmWorkloadInventoryModel.getNicsCount()>4)
-        {
-            flags.add(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME);
-        }
-        if (vmWorkloadInventoryModel.isHasRdmDisk())
-        {
-            flags.add(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME);
-        }
-
-        //TODO Add Shared Disk check to the rule here
-
         modify(workloadInventoryReport)
         {
-            setFlagsIMS(flags)
+            addFlagIMS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME)
         }
-
-        kcontext.getKieRuntime().getAgenda().getAgendaGroup("Flags").setFocus();
-        kcontext.getKieRuntime().getAgenda().getAgendaGroup("Targets").setFocus();
-        kcontext.getKieRuntime().getAgenda().getAgendaGroup("Complexity").setFocus();
-        kcontext.getKieRuntime().getAgenda().getAgendaGroup("Workloads").setFocus();
 end
+
+rule "Flag_Rdm_Disk"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME)
+        }
+end
+
+//TODO Add Shared Disk check to the rule here

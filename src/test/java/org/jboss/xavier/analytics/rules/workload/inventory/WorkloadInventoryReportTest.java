@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
@@ -29,7 +30,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     @Test
     public void test() {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 3);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 4);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
@@ -65,13 +66,13 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
             "Copy basic fields and agenda controller",
             // Flags
-                "Flags"
+               "Flag_Nics", "Flag_Rdm_Disk"
             // Targets
             // Complexity
             // Workloads
@@ -100,9 +101,11 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)",workloadInventoryReportModel.getOsDescription());
         Assert.assertEquals("RHEL",workloadInventoryReportModel.getOsName());
         // Flags
-        Assert.assertEquals(2,workloadInventoryReportModel.getFlagsIMS().size());
-        Assert.assertTrue(workloadInventoryReportModel.getFlagsIMS().contains(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME));
-        Assert.assertTrue(workloadInventoryReportModel.getFlagsIMS().contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
+        Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
+        Assert.assertNotNull(flagsIMS);
+        Assert.assertEquals(2, flagsIMS.size());
+        Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME));
+        Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
         // Targets
         // Complexity
         // Workloads
