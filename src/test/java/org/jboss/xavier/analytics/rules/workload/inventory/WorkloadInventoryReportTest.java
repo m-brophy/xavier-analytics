@@ -29,7 +29,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     @Test
     public void test() {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 2);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 3);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
@@ -46,6 +46,12 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setOsProductName("RHEL");
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
+       /* WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        workloadInventoryReportModel.setOsName("RHEL");
+        workloadInventoryReportModel.setFlagsIMS(null);
+
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);*/
+
         // define the list of commands you want to be executed by Drools
         List<Command> commands = new ArrayList<>();
         // first generate and add all of the facts created above
@@ -59,14 +65,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
-            "Copy basic fields and agenda controller"
+            "Copy basic fields and agenda controller",
             // Flags
             // Targets
             // Complexity
+                "No_Flag_Supported_OS"
             // Workloads
         );
 
@@ -81,20 +88,21 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertThat(queryResultsRow.get("report"), instanceOf(WorkloadInventoryReportModel.class));
 
         // Check that the object has exactly the fields that the rules tested should add/change
-        WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
+        WorkloadInventoryReportModel report = (WorkloadInventoryReportModel) queryResultsRow.get("report");
         // BasicFields
-        Assert.assertEquals("IMS vCenter",workloadInventoryReportModel.getProvider());
-        Assert.assertEquals("V2V-DC",workloadInventoryReportModel.getDatacenter());
-        Assert.assertEquals("Cluster 1",workloadInventoryReportModel.getCluster());
-        Assert.assertEquals("vm tests",workloadInventoryReportModel.getVmName());
-        Assert.assertEquals(new BigDecimal(100000001).intValue(),workloadInventoryReportModel.getDiskSpace().intValue());
-        Assert.assertEquals(4096,workloadInventoryReportModel.getMemory().intValue());
-        Assert.assertEquals(4,workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)",workloadInventoryReportModel.getOsDescription());
-        Assert.assertEquals("RHEL",workloadInventoryReportModel.getOsName());
+        Assert.assertEquals("IMS vCenter",report.getProvider());
+        Assert.assertEquals("V2V-DC",report.getDatacenter());
+        Assert.assertEquals("Cluster 1",report.getCluster());
+        Assert.assertEquals("vm tests",report.getVmName());
+        Assert.assertEquals(new BigDecimal(100000001).intValue(),report.getDiskSpace().intValue());
+        Assert.assertEquals(4096,report.getMemory().intValue());
+        Assert.assertEquals(4,report.getCpuCores().intValue());
+        Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)",report.getOsDescription());
+        Assert.assertEquals("RHEL",report.getOsName());
         // Flags
         // Targets
         // Complexity
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY,report.getComplexity());
         // Workloads
     }
 }

@@ -1,0 +1,93 @@
+package org.jboss.xavier.analytics.rules.workload.inventory;
+
+import org.jboss.xavier.analytics.pojo.input.workload.inventory.VMWorkloadInventoryModel
+import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel
+import java.util.HashSet;
+
+dialect "java"
+agenda-group "Complexity"
+lock-on-active true
+
+rule "No_Flag_Supported_OS"
+    when
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS == null,
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.valueOf(osName) memberOf WorkloadInventoryReportModel.OSSupport.getSupportedOSes()
+        )
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_EASY)
+        }
+end
+
+/*rule "One_Flag_Supported_OS"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM)
+        }
+end
+
+rule "More_Than_One_Flag_Supported_OS"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_HARD)
+        }
+end
+
+rule "No_Flags_Not_Supported_OS"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM)
+        }
+end
+
+rule "One_Or_More_Flags_Not_Supported_OS"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_HARD)
+        }
+end
+
+rule "Not_Detected_OS"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasRdmDisk != null,
+            hasRdmDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_UNKNOWN)
+        }
+end*/

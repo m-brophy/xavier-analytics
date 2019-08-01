@@ -10,14 +10,58 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class WorkloadInventoryReportModel
 {
     static final long serialVersionUID = 1L;
+
+    public static final String COMPLEXITY_EASY = "COMPLEXITY_EASY";
+    public static final String COMPLEXITY_MEDIUM = "COMPLEXITY_MEDIUM";
+    public static final String COMPLEXITY_HARD = "COMPLEXITY_HARD";
+    public static final String COMPLEXITY_UNKNOWN = "COMPLEXITY_UNKNOWN";
+
+    public static enum OSSupport{
+        RHEL("RHEL", true),
+        SUSE("Suse", true),
+        WINDOWS("Windows",true),
+        ORACLE("Oracle Enterprise Linux",false),
+        CENTOS("CentOS",false),
+        DEBIAN("Debian",false),
+        UBUNTU("Ubuntu",false);
+
+
+        private final String name;
+        private final boolean isSupported;
+
+        OSSupport(String name, boolean isSupported)
+        {
+            this.name = name;
+            this.isSupported = isSupported;
+        }
+
+        boolean isSupported()
+        {
+            return this.isSupported;
+        }
+
+        public static List<OSSupport> getSupportedOSes()
+        {
+            return Arrays.stream(OSSupport.values()).filter(value -> value.isSupported()).collect(Collectors.toList());
+        }
+
+        public static List<OSSupport> getUnsupportedOSes()
+        {
+            return Arrays.stream(OSSupport.values()).filter(value -> !value.isSupported()).collect(Collectors.toList());
+        }
+
+        String getName()
+        {
+            return this.name;
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "WORKLOADINVENTORYREPORTMODEL_ID_GENERATOR")
