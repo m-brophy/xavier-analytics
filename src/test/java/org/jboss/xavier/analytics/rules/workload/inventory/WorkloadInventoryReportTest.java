@@ -29,7 +29,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     @Test
     public void test() {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 3);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 8);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();

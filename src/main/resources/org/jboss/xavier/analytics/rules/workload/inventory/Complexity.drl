@@ -13,7 +13,7 @@ rule "No_Flag_Supported_OS"
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS == null,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.valueOf(osName) memberOf WorkloadInventoryReportModel.OSSupport.getSupportedOSes()
+            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
         )
     then
         modify(workloadInventoryReport)
@@ -22,13 +22,14 @@ rule "No_Flag_Supported_OS"
         }
 end
 
-/*rule "One_Flag_Supported_OS"
+rule "One_Flag_Supported_OS"
     when
-        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasRdmDisk != null,
-            hasRdmDisk == true
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            flagsIMS.size() == 1,
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
         )
-        workloadInventoryReport : WorkloadInventoryReportModel()
     then
         modify(workloadInventoryReport)
         {
@@ -38,11 +39,12 @@ end
 
 rule "More_Than_One_Flag_Supported_OS"
     when
-        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasRdmDisk != null,
-            hasRdmDisk == true
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            flagsIMS.size() > 1,
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
         )
-        workloadInventoryReport : WorkloadInventoryReportModel()
     then
         modify(workloadInventoryReport)
         {
@@ -52,11 +54,11 @@ end
 
 rule "No_Flags_Not_Supported_OS"
     when
-        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasRdmDisk != null,
-            hasRdmDisk == true
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS == null,
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.isUnsupportedOS(osName)
         )
-        workloadInventoryReport : WorkloadInventoryReportModel()
     then
         modify(workloadInventoryReport)
         {
@@ -66,11 +68,12 @@ end
 
 rule "One_Or_More_Flags_Not_Supported_OS"
     when
-        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasRdmDisk != null,
-            hasRdmDisk == true
-        )
-        workloadInventoryReport : WorkloadInventoryReportModel()
+            workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            flagsIMS.size() >= 1,
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.isUnsupportedOS(osName)
+    )
     then
         modify(workloadInventoryReport)
         {
@@ -80,14 +83,13 @@ end
 
 rule "Not_Detected_OS"
     when
-        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasRdmDisk != null,
-            hasRdmDisk == true
-        )
-        workloadInventoryReport : WorkloadInventoryReportModel()
+            workloadInventoryReport : WorkloadInventoryReportModel(
+            osName != null,
+            WorkloadInventoryReportModel.OSSupport.isUndetectedOS(osName)
+    )
     then
         modify(workloadInventoryReport)
         {
             setComplexity(WorkloadInventoryReportModel.COMPLEXITY_UNKNOWN)
         }
-end*/
+end

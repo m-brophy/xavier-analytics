@@ -47,17 +47,24 @@ public class WorkloadInventoryReportModel
             return this.isSupported;
         }
 
-        public static List<OSSupport> getSupportedOSes()
+
+
+        public static boolean isSupportedOS(String osToCheck)
         {
-            return Arrays.stream(OSSupport.values()).filter(value -> value.isSupported()).collect(Collectors.toList());
+            return Arrays.stream(OSSupport.values()).anyMatch(value -> value.name().equals(osToCheck) && value.isSupported());
         }
 
-        public static List<OSSupport> getUnsupportedOSes()
+        public static boolean isUnsupportedOS(String osToCheck)
         {
-            return Arrays.stream(OSSupport.values()).filter(value -> !value.isSupported()).collect(Collectors.toList());
+            return Arrays.stream(OSSupport.values()).anyMatch(value -> value.name().equals(osToCheck) && !value.isSupported());
         }
 
-        String getName()
+        public static boolean isUndetectedOS(String osToCheck)
+        {
+            return Arrays.stream(OSSupport.values()).noneMatch(value -> value.name().equals(osToCheck));
+        }
+
+        public String getName()
         {
             return this.name;
         }
