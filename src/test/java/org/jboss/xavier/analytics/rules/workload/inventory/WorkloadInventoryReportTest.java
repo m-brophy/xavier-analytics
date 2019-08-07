@@ -30,7 +30,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     @Test
     public void test() {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 10);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 13);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
@@ -78,19 +78,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
-            "Copy basic fields and agenda controller",
+            "Copy basic fields and agenda controller", "No_Flag_Supported_OS",
             // Flags
-               "Flag_Nics", "Flag_Rdm_Disk", "Flag_Shared_Disks",
-            // Targets
-            // Flags
-            "Flag_Nics", "One_Flag_Supported_OS", "Flag_Rdm_Disk",
-            // Workloads
+               "Flag_Nics", "One_Flag_Supported_OS", "Flag_Rdm_Disk", "More_Than_One_Flag_Supported_OS", "Flag_Shared_Disks",
+            // Target
             // Complexity
-            "More_Than_One_Flag_Supported_OS"
+
+               // Workloads
                "Workloads_sample_systemServicesNames_rule", "Workloads_sample_files_rule"
         );
 
@@ -124,7 +122,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
         // Targets
         // Complexity
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY,workloadInventoryReportModel.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,workloadInventoryReportModel.getComplexity());
         // Workloads
     }
 }
