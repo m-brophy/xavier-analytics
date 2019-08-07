@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,6 +20,10 @@ import java.util.stream.Collectors;
 public class WorkloadInventoryReportModel
 {
     static final long serialVersionUID = 1L;
+
+    public static final String MORE_THAN_4_NICS_FLAG_NAME = ">4 vNICs";
+    public static final String RDM_DISK_FLAG_NAME = "RDM";
+    public static final String SHARED_DISK_FLAG_NAME = "Shared Disk";
 
     public static final String COMPLEXITY_EASY = "COMPLEXITY_EASY";
     public static final String COMPLEXITY_MEDIUM = "COMPLEXITY_MEDIUM";
@@ -84,8 +91,8 @@ public class WorkloadInventoryReportModel
     private String vmName;
     private String osName;
     private String osDescription;
-    private BigDecimal diskSpace;
-    private Integer memory;
+    private Long diskSpace;
+    private Long memory;
     private Integer cpuCores;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> workloads;
@@ -168,19 +175,19 @@ public class WorkloadInventoryReportModel
         this.osDescription = osDescription;
     }
 
-    public BigDecimal getDiskSpace() {
+    public Long getDiskSpace() {
         return diskSpace;
     }
 
-    public void setDiskSpace(BigDecimal diskSpace) {
+    public void setDiskSpace(Long diskSpace) {
         this.diskSpace = diskSpace;
     }
 
-    public Integer getMemory() {
+    public Long getMemory() {
         return memory;
     }
 
-    public void setMemory(Integer memory) {
+    public void setMemory(Long memory) {
         this.memory = memory;
     }
 
