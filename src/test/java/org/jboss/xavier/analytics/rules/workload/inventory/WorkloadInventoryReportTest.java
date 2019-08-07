@@ -50,6 +50,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         //Flags
         vmWorkloadInventoryModel.setNicsCount(5);
         vmWorkloadInventoryModel.setHasRdmDisk(true);
+        List<String> vmDiskFilenames = new ArrayList<>();
+        vmDiskFilenames.add("/path/to/disk.vdmk");
+        vmWorkloadInventoryModel.setVmDiskFilenames(vmDiskFilenames);
+        List<String> systemServicesNames = new ArrayList<>();
+        systemServicesNames.add("unix_service");
+        vmWorkloadInventoryModel.setSystemServicesNames(systemServicesNames);
+        Map<String, String> files = new HashMap<>();
+        files.put("file.txt", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat");
+        vmWorkloadInventoryModel.setFiles(files);
 
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
@@ -72,17 +81,18 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
-       Utils.verifyRulesFiredNames(this.agendaEventListener,
+        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
             "Copy basic fields and agenda controller",
             // Flags
-               "Flag_Nics", "Flag_Rdm_Disk"
+               "Flag_Nics", "Flag_Rdm_Disk", "Flag_Shared_Disks",
             // Targets
             // Complexity
                 "No_Flag_Supported_OS"
             // Workloads
+               "Workloads_sample_systemServicesNames_rule", "Workloads_sample_files_rule"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
