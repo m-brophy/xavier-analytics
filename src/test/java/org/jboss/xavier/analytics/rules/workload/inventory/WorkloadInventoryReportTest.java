@@ -30,7 +30,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     @Test
     public void test() {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 8);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.workload.inventory", 10);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
@@ -53,11 +53,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
-       /* WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsName("RHEL");
-        workloadInventoryReportModel.setFlagsIMS(null);
 
-        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);*/
 
         // define the list of commands you want to be executed by Drools
         List<Command> commands = new ArrayList<>();
@@ -72,17 +68,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(4, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
-            "Copy basic fields and agenda controller",
-            // Flags
-               "Flag_Nics", "Flag_Rdm_Disk"
+            "Copy basic fields and agenda controller", "No_Flag_Supported_OS",
             // Targets
-            // Complexity
-                "No_Flag_Supported_OS"
+            // Flags
+            "Flag_Nics", "One_Flag_Supported_OS", "Flag_Rdm_Disk",
             // Workloads
+            // Complexity
+            "More_Than_One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -115,7 +111,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
         // Targets
         // Complexity
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY,report.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY,workloadInventoryReportModel.getComplexity());
         // Workloads
     }
 }
