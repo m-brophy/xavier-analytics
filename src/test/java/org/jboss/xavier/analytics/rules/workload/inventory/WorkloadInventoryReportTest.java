@@ -11,7 +11,6 @@ import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 import org.kie.internal.command.CommandFactory;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,11 +40,12 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setDatacenter("V2V-DC");
         vmWorkloadInventoryModel.setCluster("Cluster 1");
         vmWorkloadInventoryModel.setVmName("vm tests");
-        vmWorkloadInventoryModel.setDiskSpace(new Long(100000001));
-        vmWorkloadInventoryModel.setMemory(new Long(4096));
+        vmWorkloadInventoryModel.setDiskSpace(100000001L);
+        vmWorkloadInventoryModel.setMemory(4096L);
         vmWorkloadInventoryModel.setCpuCores(4);
         vmWorkloadInventoryModel.setGuestOSFullName("Red Hat Enterprise Linux Server release 7.6 (Maipo)");
-        vmWorkloadInventoryModel.setOsProductName("RHEL");
+        // keep it lower case to check that the rules evaluate it ignoring the case
+        vmWorkloadInventoryModel.setOsProductName("rhel");
 
         //Flags
         vmWorkloadInventoryModel.setNicsCount(5);
@@ -62,9 +62,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
-
-
-
         // define the list of commands you want to be executed by Drools
         List<Command> commands = new ArrayList<>();
         // first generate and add all of the facts created above
@@ -78,18 +75,18 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
-            "Copy basic fields and agenda controller", "No_Flag_Supported_OS",
+            "Copy basic fields and agenda controller",
             // Flags
-               "Flag_Nics", "One_Flag_Supported_OS", "Flag_Rdm_Disk", "More_Than_One_Flag_Supported_OS", "Flag_Shared_Disks",
+           "Flag_Nics", "Flag_Rdm_Disk", "Flag_Shared_Disks",
             // Target
             // Complexity
-
-               // Workloads
-               "Workloads_sample_systemServicesNames_rule", "Workloads_sample_files_rule"
+           "More_Than_One_Flag_Supported_OS",
+           // Workloads
+           "Workloads_sample_systemServicesNames_rule", "Workloads_sample_files_rule"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -109,11 +106,11 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("V2V-DC",workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals("Cluster 1",workloadInventoryReportModel.getCluster());
         Assert.assertEquals("vm tests",workloadInventoryReportModel.getVmName());
-        Assert.assertEquals(new Long(100000001).intValue(),workloadInventoryReportModel.getDiskSpace().intValue());
+        Assert.assertEquals(100000001L,workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096,workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4,workloadInventoryReportModel.getCpuCores().intValue());
         Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)",workloadInventoryReportModel.getOsDescription());
-        Assert.assertEquals("RHEL",workloadInventoryReportModel.getOsName());
+        Assert.assertEquals("rhel",workloadInventoryReportModel.getOsName());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);

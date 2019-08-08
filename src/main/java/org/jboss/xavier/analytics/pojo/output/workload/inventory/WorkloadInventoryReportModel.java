@@ -9,12 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 public class WorkloadInventoryReportModel
@@ -29,53 +27,6 @@ public class WorkloadInventoryReportModel
     public static final String COMPLEXITY_MEDIUM = "COMPLEXITY_MEDIUM";
     public static final String COMPLEXITY_HARD = "COMPLEXITY_HARD";
     public static final String COMPLEXITY_UNKNOWN = "COMPLEXITY_UNKNOWN";
-
-    public static enum OSSupport{
-        RHEL("RHEL", true),
-        SUSE("Suse", true),
-        WINDOWS("Windows",true),
-        ORACLE("Oracle Enterprise Linux",false),
-        CENTOS("CentOS",false),
-        DEBIAN("Debian",false),
-        UBUNTU("Ubuntu",false);
-
-
-        private final String name;
-        private final boolean isSupported;
-
-        OSSupport(String name, boolean isSupported)
-        {
-            this.name = name;
-            this.isSupported = isSupported;
-        }
-
-        boolean isSupported()
-        {
-            return this.isSupported;
-        }
-
-
-
-        public static boolean isSupportedOS(String osToCheck)
-        {
-            return Arrays.stream(OSSupport.values()).anyMatch(value -> value.name().equals(osToCheck) && value.isSupported());
-        }
-
-        public static boolean isUnsupportedOS(String osToCheck)
-        {
-            return Arrays.stream(OSSupport.values()).anyMatch(value -> value.name().equals(osToCheck) && !value.isSupported());
-        }
-
-        public static boolean isUndetectedOS(String osToCheck)
-        {
-            return Arrays.stream(OSSupport.values()).noneMatch(value -> value.name().equals(osToCheck));
-        }
-
-        public String getName()
-        {
-            return this.name;
-        }
-    }
 
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "WORKLOADINVENTORYREPORTMODEL_ID_GENERATOR")

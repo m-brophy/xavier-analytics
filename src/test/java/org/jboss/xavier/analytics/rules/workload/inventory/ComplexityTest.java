@@ -1,17 +1,18 @@
 package org.jboss.xavier.analytics.rules.workload.inventory;
 
-import org.jboss.xavier.analytics.pojo.input.workload.inventory.VMWorkloadInventoryModel;
 import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel;
 import org.jboss.xavier.analytics.rules.BaseTest;
 import org.jboss.xavier.analytics.test.Utils;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.kie.api.command.Command;
 import org.kie.api.io.ResourceType;
 import org.kie.internal.command.CommandFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ComplexityTest extends BaseTest {

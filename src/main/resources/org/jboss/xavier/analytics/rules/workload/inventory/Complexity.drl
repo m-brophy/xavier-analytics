@@ -4,16 +4,21 @@ import org.jboss.xavier.analytics.pojo.input.workload.inventory.VMWorkloadInvent
 import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel
 import java.util.HashSet;
 
+import function org.jboss.xavier.analytics.functions.HelperFunctions.isSupportedOS;
+import function org.jboss.xavier.analytics.functions.HelperFunctions.isUnsupportedOS;
+import function org.jboss.xavier.analytics.functions.HelperFunctions.isUndetectedOS;
+
 dialect "java"
 agenda-group "Complexity"
 lock-on-active true
+auto-focus false
 
 rule "No_Flag_Supported_OS"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS == null,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
+            isSupportedOS(osName)
         )
     then
         modify(workloadInventoryReport)
@@ -28,7 +33,7 @@ rule "One_Flag_Supported_OS"
             flagsIMS != null,
             flagsIMS.size() == 1,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
+            isSupportedOS(osName)
         )
     then
         modify(workloadInventoryReport)
@@ -43,7 +48,7 @@ rule "More_Than_One_Flag_Supported_OS"
             flagsIMS != null,
             flagsIMS.size() > 1,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isSupportedOS(osName)
+            isSupportedOS(osName)
         )
     then
         modify(workloadInventoryReport)
@@ -57,7 +62,7 @@ rule "No_Flags_Not_Supported_OS"
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS == null,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isUnsupportedOS(osName)
+            isUnsupportedOS(osName)
         )
     then
         modify(workloadInventoryReport)
@@ -72,7 +77,7 @@ rule "One_Or_More_Flags_Not_Supported_OS"
             flagsIMS != null,
             flagsIMS.size() >= 1,
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isUnsupportedOS(osName)
+            isUnsupportedOS(osName)
     )
     then
         modify(workloadInventoryReport)
@@ -85,7 +90,7 @@ rule "Not_Detected_OS"
     when
             workloadInventoryReport : WorkloadInventoryReportModel(
             osName != null,
-            WorkloadInventoryReportModel.OSSupport.isUndetectedOS(osName)
+            isUndetectedOS(osName)
     )
     then
         modify(workloadInventoryReport)
