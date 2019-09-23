@@ -1,14 +1,7 @@
 package org.jboss.xavier.analytics.rules.initialcostsaving;
 
 import org.jboss.xavier.analytics.pojo.input.UploadFormInputDataModel;
-import org.jboss.xavier.analytics.pojo.output.EnvironmentModel;
-import org.jboss.xavier.analytics.pojo.output.InitialSavingsEstimationReportModel;
-import org.jboss.xavier.analytics.pojo.output.RHVAdditionalContainerCapacityModel;
-import org.jboss.xavier.analytics.pojo.output.RHVRampUpCostsModel;
-import org.jboss.xavier.analytics.pojo.output.RHVSavingsModel;
-import org.jboss.xavier.analytics.pojo.output.RHVYearByYearCostsModel;
-import org.jboss.xavier.analytics.pojo.output.SourceCostsModel;
-import org.jboss.xavier.analytics.pojo.output.SourceRampDownCostsModel;
+import org.jboss.xavier.analytics.pojo.output.*;
 import org.jboss.xavier.analytics.pojo.support.initialcostsaving.PricingDataModel;
 import org.jboss.xavier.analytics.rules.BaseIntegrationTest;
 import org.jboss.xavier.analytics.test.Utils;
@@ -39,7 +32,7 @@ public class InitialSavingsEstimationReportTest extends BaseIntegrationTest
     public void test_SourceNewELAIndicator_0()
     {
         // check that the numbers of rule from the DRL file is the number of rules loaded
-        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.initialcostsaving", 26);
+        Utils.checkLoadedRulesNumber(kieSession, "org.jboss.xavier.analytics.rules.initialcostsaving", 27);
 
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
@@ -71,7 +64,7 @@ public class InitialSavingsEstimationReportTest extends BaseIntegrationTest
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(21, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(22, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // Environment
@@ -89,8 +82,9 @@ public class InitialSavingsEstimationReportTest extends BaseIntegrationTest
                 // RHVSavings
                  "RHVSavingsRules",
                 // RHVAdditionalContainerCapacity
-                 "RHVAdditionalContainerCapacity"
+                 "RHVAdditionalContainerCapacity",
                 // RHVOrderForm
+                "RHVOrderFormRules"
                 );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -281,6 +275,43 @@ public class InitialSavingsEstimationReportTest extends BaseIntegrationTest
         Assert.assertEquals(345210, model.getRhvContainerLikely(), 0);
         Assert.assertEquals(243960, model.getRhvContainerLow(), 0);
         // RHVOrderForm
+        RHVOrderFormModel rhvOrderFormModel = report.getRhvOrderFormModel();
+        Assert.assertEquals("", rhvOrderFormModel.getYear1RhvOrderSku());
+        Assert.assertEquals(0, rhvOrderFormModel.getYear1RhvOrder().doubleValue(),0.1);
+        Assert.assertEquals(0, rhvOrderFormModel.getYear1RhvOrderListValue().doubleValue(),0.1);
+        Assert.assertEquals(0, rhvOrderFormModel.getYear1RhvOrderDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(0, rhvOrderFormModel.getYear1RhvOrderTotalValue().doubleValue(),0.1);
+
+
+        Assert.assertEquals(1000, rhvOrderFormModel.getYear1RhvOrderConsult().doubleValue(),0.1);
+        Assert.assertEquals(100, rhvOrderFormModel.getYear1RhvOrderConsultListValue().doubleValue(),0.1);
+        Assert.assertEquals(100, rhvOrderFormModel.getYear1RhvOrderConsultDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(100000, rhvOrderFormModel.getYear1RhvOrderConsultTotalValue().doubleValue(),0.1);
+        Assert.assertEquals(1, rhvOrderFormModel.getYear1RhvOrderTAndE().doubleValue(),0.1);
+        Assert.assertEquals(30000, rhvOrderFormModel.getYear1RhvOrderTAndEValue().doubleValue(),0.1);
+        Assert.assertEquals(30000, rhvOrderFormModel.getYear1RhvOrderTAndEDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(30000, rhvOrderFormModel.getYear1RhvOrderTAndETotalValue().doubleValue(),0.1);
+        Assert.assertEquals(7000, rhvOrderFormModel.getYear1RhvOrderLearningSubsListValue().doubleValue(),0.1);
+        Assert.assertEquals(4.28, rhvOrderFormModel.getYear1RhvOrderLearningSubs().doubleValue(),0.1);
+        Assert.assertEquals(7000, rhvOrderFormModel.getYear1RhvOrderLearningSubsDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(30000, rhvOrderFormModel.getYear1RhvOrderLearningSubsTotalValue().doubleValue(),0.1);
+        Assert.assertEquals(160000, rhvOrderFormModel.getYear1RhvOrderGrandTotal().doubleValue(),0.1);
+
+
+        Assert.assertEquals("RV0213787", rhvOrderFormModel.getYear2RhvOrderSku());
+        Assert.assertEquals(620, rhvOrderFormModel.getYear2RhvOrder().doubleValue(),0.1);
+        Assert.assertEquals(1500, rhvOrderFormModel.getYear2RhvOrderListValue().doubleValue(),0.1);
+        Assert.assertEquals(375, rhvOrderFormModel.getYear2RhvOrderDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(232500, rhvOrderFormModel.getYear2RhvOrderTotalValue().doubleValue(),0.1);
+        Assert.assertEquals(232500, rhvOrderFormModel.getYear2RhvOrderGrandTotal().doubleValue(),0.1);
+
+
+        Assert.assertEquals("RV0213787", rhvOrderFormModel.getYear3RhvOrderSku());
+        Assert.assertEquals(864, rhvOrderFormModel.getYear3RhvOrder().doubleValue(),0.1);
+        Assert.assertEquals(1500, rhvOrderFormModel.getYear3RhvOrderListValue().doubleValue(),0.1);
+        Assert.assertEquals(375, rhvOrderFormModel.getYear3RhvOrderDiscountValue().doubleValue(),0.1);
+        Assert.assertEquals(324000, rhvOrderFormModel.getYear3RhvOrderTotalValue().doubleValue(),0.1);
+        Assert.assertEquals(324000, rhvOrderFormModel.getYear3RhvOrderGrandTotal().doubleValue(),0.1);
     }
 
     @Test @Ignore

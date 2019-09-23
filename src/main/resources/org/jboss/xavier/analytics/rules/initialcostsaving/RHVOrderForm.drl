@@ -1,0 +1,148 @@
+package org.jboss.xavier.analytics.rules.initialcostsaving;
+
+
+import org.jboss.xavier.analytics.pojo.support.initialcostsaving.PricingDataModel;
+import org.jboss.xavier.analytics.pojo.output.RHVOrderFormModel
+import org.jboss.xavier.analytics.pojo.output.EnvironmentModel
+import org.jboss.xavier.analytics.pojo.output.InitialSavingsEstimationReportModel
+import org.jboss.xavier.analytics.pojo.output.RHVYearByYearCostsModel
+import org.jboss.xavier.analytics.pojo.output.RHVRampUpCostsModel
+
+
+
+import function org.jboss.xavier.analytics.functions.HelperFunctions.round;
+
+
+dialect "java"
+agenda-group "RHVOrderForm"
+lock-on-active true
+
+rule "RHVOrderFormRules"
+    when
+        pricing : PricingDataModel(
+            rhvListValue != null,
+            rhvValue != null,
+            rhVirtListValue != null,
+            rhVirtValue != null,
+            rhvConsultValue != null,
+            rhvTAndEValue != null,
+            rhLearningSubsValue != null)
+        report : InitialSavingsEstimationReportModel(
+            environmentModel != null,
+            environmentModel.sourceProductIndicator != null,
+            rhvRampUpCostsModel != null,
+            rhvRampUpCostsModel.year1RhvPaidSubs != null,
+            rhvRampUpCostsModel.year1RhvPaidSubsGrowth != null,
+            rhvRampUpCostsModel.year2RhvPaidSubs != null,
+            rhvRampUpCostsModel.year2RhvPaidSubsGrowth != null,
+            rhvRampUpCostsModel.year3RhvPaidSubs != null,
+            rhvRampUpCostsModel.year3RhvPaidSubsGrowth != null)
+    then
+        RHVOrderFormModel rhvOrderFormModel = new RHVOrderFormModel();
+        RHVRampUpCostsModel rhvRampUpCostsModel = report.getRhvRampUpCostsModel();
+        boolean isVSphere = report.getEnvironmentModel().getSourceProductIndicator()==1;
+        //Year1
+        boolean year1SubsNotPaid = rhvRampUpCostsModel.getYear1RhvPaidSubs()==0;
+        boolean noYear1PaidSubsGrowth = rhvRampUpCostsModel.getYear1RhvPaidSubsGrowth()==0;
+        if(year1SubsNotPaid && noYear1PaidSubsGrowth)
+        {
+            rhvOrderFormModel.setYear1RhvOrderSku("");
+            rhvOrderFormModel.setYear1RhvOrder(0d);
+            rhvOrderFormModel.setYear1RhvOrderListValue(0d);
+            rhvOrderFormModel.setYear1RhvOrderDiscountValue(0d);
+            rhvOrderFormModel.setYear1RhvOrderTotalValue(0d);
+        }
+        else if( isVSphere)
+        {
+            rhvOrderFormModel.setYear1RhvOrderSku("RV0213787");
+            rhvOrderFormModel.setYear1RhvOrder((double)round(rhvRampUpCostsModel.getYear1RhvPaidSubs() + rhvRampUpCostsModel.getYear1RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear1RhvOrderListValue(pricing.getRhvListValue());
+            rhvOrderFormModel.setYear1RhvOrderDiscountValue((1-pricing.getRhvValue())*pricing.getRhvListValue());
+            rhvOrderFormModel.setYear1RhvOrderTotalValue(rhvOrderFormModel.getYear1RhvOrder()*rhvOrderFormModel.getYear1RhvOrderDiscountValue());
+        }
+        else
+        {
+            rhvOrderFormModel.setYear1RhvOrderSku("RV00012");
+            rhvOrderFormModel.setYear1RhvOrder((double)round(rhvRampUpCostsModel.getYear1RhvPaidSubs() + rhvRampUpCostsModel.getYear1RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear1RhvOrderListValue(pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear1RhvOrderDiscountValue((1-pricing.getRhVirtValue())*pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear1RhvOrderTotalValue(rhvOrderFormModel.getYear1RhvOrder()*rhvOrderFormModel.getYear1RhvOrderDiscountValue());
+        }
+        rhvOrderFormModel.setYear1RhvOrderConsult(pricing.getRhvConsultValue()/100);
+        rhvOrderFormModel.setYear1RhvOrderConsultListValue(100.0);
+        rhvOrderFormModel.setYear1RhvOrderConsultDiscountValue(100.0);
+        rhvOrderFormModel.setYear1RhvOrderConsultTotalValue(rhvOrderFormModel.getYear1RhvOrderConsult()*rhvOrderFormModel.getYear1RhvOrderConsultDiscountValue());
+        rhvOrderFormModel.setYear1RhvOrderTAndE(1d);
+        rhvOrderFormModel.setYear1RhvOrderTAndEValue(pricing.getRhvTAndEValue());
+        rhvOrderFormModel.setYear1RhvOrderTAndEDiscountValue(pricing.getRhvTAndEValue());
+        rhvOrderFormModel.setYear1RhvOrderTAndETotalValue(rhvOrderFormModel.getYear1RhvOrderTAndE()*rhvOrderFormModel.getYear1RhvOrderTAndEDiscountValue());
+        rhvOrderFormModel.setYear1RhvOrderLearningSubsListValue(7000d);
+        rhvOrderFormModel.setYear1RhvOrderLearningSubs(pricing.getRhLearningSubsValue()/rhvOrderFormModel.getYear1RhvOrderLearningSubsListValue());
+        rhvOrderFormModel.setYear1RhvOrderLearningSubsDiscountValue(7000d);
+        rhvOrderFormModel.setYear1RhvOrderLearningSubsTotalValue(rhvOrderFormModel.getYear1RhvOrderLearningSubs()*rhvOrderFormModel.getYear1RhvOrderLearningSubsListValue());
+        rhvOrderFormModel.setYear1RhvOrderGrandTotal(rhvOrderFormModel.getYear1RhvOrderTotalValue() +
+                                                        rhvOrderFormModel.getYear1RhvOrderConsultTotalValue() +
+                                                        rhvOrderFormModel.getYear1RhvOrderTAndETotalValue() +
+                                                        rhvOrderFormModel.getYear1RhvOrderLearningSubsTotalValue());
+        //Year2
+        boolean year2SubsNotPaid = rhvRampUpCostsModel.getYear2RhvPaidSubs()==0;
+        boolean noYear2PaidSubsGrowth = rhvRampUpCostsModel.getYear2RhvPaidSubsGrowth()==0;
+        if(year2SubsNotPaid && noYear2PaidSubsGrowth)
+        {
+            rhvOrderFormModel.setYear2RhvOrderSku("");
+            rhvOrderFormModel.setYear2RhvOrder(0d);
+            rhvOrderFormModel.setYear2RhvOrderListValue(0d);
+            rhvOrderFormModel.setYear2RhvOrderDiscountValue(0d);
+            rhvOrderFormModel.setYear2RhvOrderTotalValue(0d);
+        }
+        else if( isVSphere)
+        {
+            rhvOrderFormModel.setYear2RhvOrderSku("RV0213787");
+            rhvOrderFormModel.setYear2RhvOrder((double)round(rhvRampUpCostsModel.getYear2RhvPaidSubs() + rhvRampUpCostsModel.getYear2RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear2RhvOrderListValue(pricing.getRhvListValue());
+            rhvOrderFormModel.setYear2RhvOrderDiscountValue((1-pricing.getRhvValue())*pricing.getRhvListValue());
+            rhvOrderFormModel.setYear2RhvOrderTotalValue(rhvOrderFormModel.getYear2RhvOrder()*rhvOrderFormModel.getYear2RhvOrderDiscountValue());
+        }
+        else
+        {
+            rhvOrderFormModel.setYear2RhvOrderSku("RV00012");
+            rhvOrderFormModel.setYear2RhvOrder((double)round(rhvRampUpCostsModel.getYear2RhvPaidSubs() + rhvRampUpCostsModel.getYear2RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear2RhvOrderListValue(pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear2RhvOrderDiscountValue((1-pricing.getRhVirtValue())*pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear2RhvOrderTotalValue(rhvOrderFormModel.getYear2RhvOrder()*rhvOrderFormModel.getYear2RhvOrderDiscountValue());
+        }
+        rhvOrderFormModel.setYear2RhvOrderGrandTotal(rhvOrderFormModel.getYear2RhvOrderTotalValue());
+        //Year3
+        boolean year3SubsNotPaid = rhvRampUpCostsModel.getYear3RhvPaidSubs()==0;
+        boolean noYear3PaidSubsGrowth = rhvRampUpCostsModel.getYear3RhvPaidSubsGrowth()==0;
+        if(year3SubsNotPaid && noYear3PaidSubsGrowth)
+        {
+            rhvOrderFormModel.setYear3RhvOrderSku("");
+            rhvOrderFormModel.setYear3RhvOrder(0d);
+            rhvOrderFormModel.setYear3RhvOrderListValue(0d);
+            rhvOrderFormModel.setYear3RhvOrderDiscountValue(0d);
+            rhvOrderFormModel.setYear3RhvOrderTotalValue(0d);
+        }
+        else if( isVSphere)
+        {
+            rhvOrderFormModel.setYear3RhvOrderSku("RV0213787");
+            rhvOrderFormModel.setYear3RhvOrder((double)round(rhvRampUpCostsModel.getYear3RhvPaidSubs() + rhvRampUpCostsModel.getYear3RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear3RhvOrderListValue(pricing.getRhvListValue());
+            rhvOrderFormModel.setYear3RhvOrderDiscountValue((1-pricing.getRhvValue())*pricing.getRhvListValue());
+            rhvOrderFormModel.setYear3RhvOrderTotalValue(rhvOrderFormModel.getYear3RhvOrder()*rhvOrderFormModel.getYear3RhvOrderDiscountValue());
+        }
+        else
+        {
+            rhvOrderFormModel.setYear3RhvOrderSku("RV00012");
+            rhvOrderFormModel.setYear3RhvOrder((double)round(rhvRampUpCostsModel.getYear3RhvPaidSubs() + rhvRampUpCostsModel.getYear3RhvPaidSubsGrowth()));
+            rhvOrderFormModel.setYear3RhvOrderListValue(pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear3RhvOrderDiscountValue((1-pricing.getRhVirtValue())*pricing.getRhVirtListValue());
+            rhvOrderFormModel.setYear3RhvOrderTotalValue(rhvOrderFormModel.getYear3RhvOrder()*rhvOrderFormModel.getYear3RhvOrderDiscountValue());
+        }
+        rhvOrderFormModel.setYear3RhvOrderGrandTotal(rhvOrderFormModel.getYear3RhvOrderTotalValue());
+
+        modify(report)
+        {
+            setRhvOrderFormModel(rhvOrderFormModel)
+        }
+end

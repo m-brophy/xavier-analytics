@@ -3,7 +3,7 @@ package org.jboss.xavier.analytics.pojo.output;
 public class RHVOrderFormModel
 {
     // RHVOrderForm
-    private Double year1RhvOrderSku;
+    private String year1RhvOrderSku;
     private Double year1RhvOrder;
     private Double year1RhvOrderConsult;
     private Double year1RhvOrderTAndE;
@@ -21,13 +21,13 @@ public class RHVOrderFormModel
     private Double year1RhvOrderTAndETotalValue;
     private Double year1RhvOrderLearningSubsTotalValue;
     private Double year1RhvOrderGrandTotal;
-    private Double year2RhvOrderSku;
+    private String year2RhvOrderSku;
     private Double year2RhvOrder;
     private Double year2RhvOrderListValue;
     private Double year2RhvOrderDiscountValue;
     private Double year2RhvOrderTotalValue;
     private Double year2RhvOrderGrandTotal;
-    private Double year3RhvOrderSku;
+    private String year3RhvOrderSku;
     private Double year3RhvOrder;
     private Double year3RhvOrderListValue;
     private Double year3RhvOrderDiscountValue;
@@ -36,11 +36,11 @@ public class RHVOrderFormModel
 
     public RHVOrderFormModel() {}
 
-    public Double getYear1RhvOrderSku() {
+    public String getYear1RhvOrderSku() {
         return year1RhvOrderSku;
     }
 
-    public void setYear1RhvOrderSku(Double year1RhvOrderSku) {
+    public void setYear1RhvOrderSku(String year1RhvOrderSku) {
         this.year1RhvOrderSku = year1RhvOrderSku;
     }
 
@@ -180,11 +180,11 @@ public class RHVOrderFormModel
         this.year1RhvOrderGrandTotal = year1RhvOrderGrandTotal;
     }
 
-    public Double getYear2RhvOrderSku() {
+    public String getYear2RhvOrderSku() {
         return year2RhvOrderSku;
     }
 
-    public void setYear2RhvOrderSku(Double year2RhvOrderSku) {
+    public void setYear2RhvOrderSku(String year2RhvOrderSku) {
         this.year2RhvOrderSku = year2RhvOrderSku;
     }
 
@@ -228,11 +228,11 @@ public class RHVOrderFormModel
         this.year2RhvOrderGrandTotal = year2RhvOrderGrandTotal;
     }
 
-    public Double getYear3RhvOrderSku() {
+    public String getYear3RhvOrderSku() {
         return year3RhvOrderSku;
     }
 
-    public void setYear3RhvOrderSku(Double year3RhvOrderSku) {
+    public void setYear3RhvOrderSku(String year3RhvOrderSku) {
         this.year3RhvOrderSku = year3RhvOrderSku;
     }
 
