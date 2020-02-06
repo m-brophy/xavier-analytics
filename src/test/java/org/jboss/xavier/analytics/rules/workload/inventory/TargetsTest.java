@@ -15,7 +15,7 @@ public class TargetsTest extends BaseTest {
 
     public TargetsTest() {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/Targets.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory", 3);
+                "org.jboss.xavier.analytics.rules.workload.inventory", 4);
     }
 
     @Test
@@ -102,21 +102,21 @@ public class TargetsTest extends BaseTest {
     }
 
     @Test
-    public void testTargetsNoFlagsConvertibleOS() {
+    public void testTargetsNoFlagsUnsupportedOS() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
         facts.put("agendaGroup", "Targets");
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsDescription("CentOS");
+        workloadInventoryReportModel.setOsDescription("Ubuntu");
         workloadInventoryReportModel.setFlagsIMS(null);
 
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(4, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_RHV", "Target_OSP", "Target_Convert2RHEL");
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
@@ -124,9 +124,11 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
         Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(3, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
+        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
+        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
     }
 
     @Test

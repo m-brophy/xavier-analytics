@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory", 26);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory", 27);
     }
 
     @Test
@@ -342,7 +342,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void testNoFlagsUnSupportedOS() throws ParseException {
+    public void testNoFlagsConvertibleOS() throws ParseException {
         // create a Map with the facts (i.e. Objects) you want to put in the working memory
         Map<String, Object> facts = new HashMap<>();
 
@@ -594,7 +594,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -604,7 +604,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Flags
                 "Flag_Nics",
                 // Target
-                //"Target_RHV",
+                "Target_None",
                 // Complexity
                 "One_Or_More_Flags_Not_Supported_OS",
                 // Workloads
@@ -645,8 +645,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME));
         // Targets
         Set<String> targets = workloadInventoryReportModel.getRecommendedTargetsIMS();
-        Assert.assertNull(targets);
-        //Assert.assertTrue(targets.contains("RHV"));
+        Assert.assertEquals(1, targets.size());
+        Assert.assertTrue(targets.contains("None"));
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,workloadInventoryReportModel.getComplexity());
         // Workloads
@@ -702,13 +702,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(4, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 // Flags
                 // Target
+                "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
