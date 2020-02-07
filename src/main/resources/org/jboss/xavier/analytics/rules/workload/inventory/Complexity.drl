@@ -67,7 +67,7 @@ rule "No_Flags_Not_Supported_OS"
     then
         modify(workloadInventoryReport)
         {
-            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM)
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED)
         }
 end
 
@@ -82,7 +82,7 @@ rule "One_Or_More_Flags_Not_Supported_OS"
     then
         modify(workloadInventoryReport)
         {
-            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_HARD)
+            setComplexity(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED)
         }
 end
 

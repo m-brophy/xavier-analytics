@@ -648,7 +648,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, targets.size());
         Assert.assertTrue(targets.contains("None"));
         // Complexity
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,workloadInventoryReportModel.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED,workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
     }
@@ -667,9 +667,10 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setDiskSpace(100000001L);
         vmWorkloadInventoryModel.setMemory(4096L);
         vmWorkloadInventoryModel.setCpuCores(4);
-        vmWorkloadInventoryModel.setGuestOSFullName("Apple OSX");
-        // keep it lower case to check that the rules evaluate it ignoring the case
-        vmWorkloadInventoryModel.setOsProductName("OSX");
+        //set to empty string because basicfields.drl doesn't allow nulls through
+        vmWorkloadInventoryModel.setGuestOSFullName("");
+        //set to empty string because basicfields.drl doesn't allow nulls through
+        vmWorkloadInventoryModel.setOsProductName("");
         vmWorkloadInventoryModel.setProduct("VMware vCenter");
         vmWorkloadInventoryModel.setVersion("6.5");
         vmWorkloadInventoryModel.setHost_name("esx13.v2v.bos.redhat.com");
@@ -711,7 +712,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
+                "Not_Detected_OS",
                 // Workloads
                 "SsaEnabled_System_Services_Present"
         );
@@ -736,8 +737,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(100000001L,workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096,workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4,workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertEquals("Apple OSX",workloadInventoryReportModel.getOsDescription());
-        Assert.assertEquals("OSX",workloadInventoryReportModel.getOsName());
+        Assert.assertEquals("",workloadInventoryReportModel.getOsDescription());
+        Assert.assertEquals("",workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
@@ -746,8 +747,10 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
         // Targets
+        Assert.assertEquals(1,workloadInventoryReportModel.getRecommendedTargetsIMS().size());
+        Assert.assertTrue(workloadInventoryReportModel.getRecommendedTargetsIMS().contains("None"));
         // Complexity
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM,workloadInventoryReportModel.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNKNOWN,workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
     }

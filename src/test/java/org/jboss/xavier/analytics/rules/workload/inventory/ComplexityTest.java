@@ -119,7 +119,7 @@ public class ComplexityTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM,report.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED,report.getComplexity());
 
     }
 
@@ -145,7 +145,7 @@ public class ComplexityTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,report.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED,report.getComplexity());
 
     }
 
@@ -172,7 +172,7 @@ public class ComplexityTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,report.getComplexity());
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED,report.getComplexity());
 
     }
 

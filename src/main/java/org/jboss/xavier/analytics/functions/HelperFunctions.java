@@ -23,7 +23,14 @@ public class HelperFunctions
 
     public static boolean isUnsupportedOS(String osToCheck)
     {
-        return Arrays.stream(OSSupport.values()).noneMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()));
+        if(osToCheck.equals(""))
+        {
+            return false;
+        }
+        else
+        {
+            return Arrays.stream(OSSupport.values()).noneMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()));
+        }
     }
 
     public static boolean isUndetectedOS(String osToCheck)
