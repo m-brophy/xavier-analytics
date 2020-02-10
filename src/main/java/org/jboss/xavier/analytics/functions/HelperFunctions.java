@@ -13,12 +13,14 @@ public class HelperFunctions
 
     public static boolean isSupportedOS(String osToCheck)
     {
-        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isSupported());
+        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isSupported()
+                                                                        && !isBlacklistedOS(osToCheck));
     }
 
     public static boolean isConvertibleOS(String osToCheck)
     {
-        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && !value.isSupported());
+        return Arrays.stream(OSSupport.values()).anyMatch(value -> (osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && !value.isSupported())
+                                                                        && !isBlacklistedOS(osToCheck));
     }
 
     public static boolean isUnsupportedOS(String osToCheck)
@@ -29,7 +31,8 @@ public class HelperFunctions
         }
         else
         {
-            return Arrays.stream(OSSupport.values()).noneMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()));
+            return Arrays.stream(OSSupport.values()).noneMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase())
+                                                                        && !isBlacklistedOS(osToCheck));
         }
     }
 
@@ -38,20 +41,30 @@ public class HelperFunctions
         return osToCheck == null || osToCheck.equals("");
     }
 
+    //Any input OS string which matches a blacklisted OS value
+    //will override if they otherwise match as supported or convertible and mark them as Unsupported
+    private static boolean isBlacklistedOS(String osToCheck)
+    {
+        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isBlacklisted());
+    }
+
     public enum OSSupport{
-        RHEL("Red Hat Enterprise Linux", true),
-        SUSE("SUSE Linux Enterprise Server", true),
-        WINDOWS("Windows",true),
-        ORACLE("Oracle Enterprise Linux",false),
-        CENTOS("CentOS",false);
+        RHEL("Red Hat Enterprise Linux", true, false),
+        SUSE("SUSE", true, false),
+        WINDOWS("Windows",true, false),
+        ORACLE("Oracle Enterprise Linux",false, false),
+        CENTOS("CentOS",false, false),
+        WINDOWS_XP("XP", false, true);
 
         private final String name;
         private final boolean isSupported;
+        private final boolean isBlacklisted;
 
-        OSSupport(String name, boolean isSupported)
+        OSSupport(String name, boolean isSupported, boolean isBlacklisted)
         {
             this.name = name;
             this.isSupported = isSupported;
+            this.isBlacklisted  = isBlacklisted;
         }
 
         boolean isSupported()
@@ -63,6 +76,8 @@ public class HelperFunctions
         {
             return this.name;
         }
+
+        boolean isBlacklisted() {return this.isBlacklisted;}
     }
 
     public enum FlagUnsuitabilityForOSPTarget{

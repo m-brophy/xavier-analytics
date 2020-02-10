@@ -316,6 +316,35 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
+        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_RHV", "Target_OSP");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Assert.assertNotNull(report.getRecommendedTargetsIMS());
+        Assert.assertEquals(2, report.getRecommendedTargetsIMS().size());
+        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
+        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+    }
+
+    @Test
+    public void testTargetsSolaris() {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Targets");
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        workloadInventoryReportModel.setOsDescription("Oracle Solaris");
+
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+
         Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
 
@@ -333,13 +362,13 @@ public class TargetsTest extends BaseTest {
     }
 
     @Test
-    public void testTargetsSolaris() {
+    public void testTargetsXP() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
         facts.put("agendaGroup", "Targets");
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsDescription("Oracle Solaris");
+        workloadInventoryReportModel.setOsDescription("Microsoft Windows XP");
 
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 

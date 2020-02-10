@@ -70,6 +70,34 @@ public class ComplexityTest extends BaseTest {
 
     }
 
+
+
+    @Test
+    public void testOneFlagSuseOS() {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Complexity");
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        workloadInventoryReportModel.setOsDescription("SUSE");
+        workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME);
+
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "One_Flag_Supported_OS");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM,report.getComplexity());
+
+    }
+
     @Test
     public void testMoreThanOneFlagSupportedOS() {
         Map<String, Object> facts = new HashMap<>();
