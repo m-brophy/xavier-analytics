@@ -55,6 +55,6 @@ rule "Target_Convert2RHEL"
     then
         modify(workloadInventoryReport)
         {
-            addRecommendedTargetsIMS("Convert2RHEL")
+            addRecommendedTargetsIMS("RHEL")
         }
 end

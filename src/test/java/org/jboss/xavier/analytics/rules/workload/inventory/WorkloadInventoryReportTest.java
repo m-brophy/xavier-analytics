@@ -439,7 +439,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(3, targets.size());
         Assert.assertTrue(targets.contains("RHV"));
         Assert.assertTrue(targets.contains("OSP"));
-        Assert.assertTrue(targets.contains("Convert2RHEL"));
+        Assert.assertTrue(targets.contains("RHEL"));
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM,workloadInventoryReportModel.getComplexity());
         // Workloads
@@ -543,7 +543,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Set<String> targets = workloadInventoryReportModel.getRecommendedTargetsIMS();
         Assert.assertEquals(2, targets.size());
         Assert.assertTrue(targets.contains("RHV"));
-        Assert.assertTrue(targets.contains("Convert2RHEL"));
+        Assert.assertTrue(targets.contains("RHEL"));
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD,workloadInventoryReportModel.getComplexity());
         // Workloads
