@@ -398,7 +398,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Flags
 
                 // Target
-                "Target_RHV", "Target_OSP", "Target_Convert2RHEL",
+                "Target_RHV", "Target_OSP", "Target_RHEL",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
@@ -503,7 +503,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Flags
                 "Flag_Nics", "Flag_Rdm_Disk",
                 // Target
-                "Target_RHV", "Target_Convert2RHEL",
+                "Target_RHV", "Target_RHEL",
                 // Complexity
                 "One_Or_More_Flags_Not_Supported_OS",
                 // Workloads
