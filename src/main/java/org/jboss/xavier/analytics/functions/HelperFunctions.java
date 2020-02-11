@@ -28,7 +28,7 @@ public class HelperFunctions
 
     public static boolean isUndetectedOS(String osToCheck)
     {
-        return osToCheck == null || osToCheck.equals("");
+        return osToCheck == null || osToCheck.trim().isEmpty();
     }
 
     public enum OSSupport{
