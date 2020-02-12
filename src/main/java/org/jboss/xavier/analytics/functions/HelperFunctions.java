@@ -38,7 +38,7 @@ public class HelperFunctions
 
     public static boolean isUndetectedOS(String osToCheck)
     {
-        return osToCheck == null || osToCheck.equals("");
+        return osToCheck == null || osToCheck.trim().isEmpty();
     }
 
     //Any input OS string which matches a blacklisted OS value
