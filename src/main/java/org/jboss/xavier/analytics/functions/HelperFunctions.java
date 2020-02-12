@@ -23,7 +23,7 @@ public class HelperFunctions
                                                                         && !isBlacklistedOS(osToCheck));
     }
 
-    public static boolean isConvertibleOS(String osToCheck)
+    public static boolean isUnsupportedOS(String osToCheck)
     {
         if(osToCheck.equals(""))
         {
@@ -36,7 +36,7 @@ public class HelperFunctions
         }
     }
 
-    public static boolean isUnsupportedOS(String osToCheck)
+    public static boolean isUndetectedOS(String osToCheck)
     {
         return osToCheck == null || osToCheck.trim().isEmpty();
     }
@@ -46,11 +46,6 @@ public class HelperFunctions
     private static boolean isBlacklistedOS(String osToCheck)
     {
         return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isBlacklisted());
-    }
-
-    public static boolean isUndetectedOS(String osToCheck)
-    {
-        return osToCheck == null || osToCheck.trim().isEmpty();
     }
 
     public enum OSSupport{
