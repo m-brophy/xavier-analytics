@@ -23,7 +23,7 @@ public class HelperFunctions
                                                                         && !isBlacklistedOS(osToCheck));
     }
 
-    public static boolean isUnsupportedOS(String osToCheck)
+    public static boolean isConvertibleOS(String osToCheck)
     {
         if(osToCheck.equals(""))
         {
@@ -36,7 +36,7 @@ public class HelperFunctions
         }
     }
 
-    public static boolean isUndetectedOS(String osToCheck)
+    public static boolean isUnsupportedOS(String osToCheck)
     {
         return osToCheck == null || osToCheck.trim().isEmpty();
     }
@@ -48,13 +48,21 @@ public class HelperFunctions
         return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isBlacklisted());
     }
 
+    public static boolean isUndetectedOS(String osToCheck)
+    {
+        return osToCheck == null || osToCheck.trim().isEmpty();
+    }
+
     public enum OSSupport{
+
         RHEL("Red Hat Enterprise Linux", true, false),
         SUSE("SUSE", true, false),
         WINDOWS("Windows",true, false),
         ORACLE("Oracle Enterprise Linux",false, false),
         CENTOS("CentOS",false, false),
         WINDOWS_XP("XP", false, true);
+
+        
 
         private final String name;
         private final boolean isSupported;
