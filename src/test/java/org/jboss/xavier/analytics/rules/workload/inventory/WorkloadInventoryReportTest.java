@@ -355,7 +355,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setDiskSpace(100000001L);
         vmWorkloadInventoryModel.setMemory(4096L);
         vmWorkloadInventoryModel.setCpuCores(4);
-        vmWorkloadInventoryModel.setGuestOSFullName("Oracle Enterprise Linux");
+        vmWorkloadInventoryModel.setGuestOSFullName("Oracle Linux");
         // keep it lower case to check that the rules evaluate it ignoring the case
         vmWorkloadInventoryModel.setOsProductName("Oracle");
         vmWorkloadInventoryModel.setProduct("VMware vCenter");
@@ -425,7 +425,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(100000001L,workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096,workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4,workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertEquals("Oracle Enterprise Linux",workloadInventoryReportModel.getOsDescription());
+        Assert.assertEquals("Oracle Linux",workloadInventoryReportModel.getOsDescription());
         Assert.assertEquals("Oracle",workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());

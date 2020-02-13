@@ -316,7 +316,7 @@ public class ComplexityTest extends BaseTest {
         facts.put("agendaGroup", "Complexity");
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsDescription("Oracle Enterprise Linux");
+        workloadInventoryReportModel.setOsDescription("Oracle Linux");
         workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME);
 
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);

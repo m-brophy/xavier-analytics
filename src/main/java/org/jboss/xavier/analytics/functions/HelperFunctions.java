@@ -42,7 +42,7 @@ public class HelperFunctions
         RHEL("Red Hat Enterprise Linux", true, false),
         SUSE("SUSE", true, false),
         WINDOWS("Windows",true, false),
-        ORACLE("Oracle Enterprise Linux",false, true),
+        ORACLE("Oracle Linux",false, true),
         CENTOS("CentOS",false, true),
         WINDOWS_XP("Windows XP", false, false);
 

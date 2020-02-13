@@ -168,7 +168,7 @@ public class TargetsTest extends BaseTest {
         facts.put("agendaGroup", "Targets");
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsDescription("Oracle Enterprise Linux Server");
+        workloadInventoryReportModel.setOsDescription("Oracle Linux Server");
 
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
