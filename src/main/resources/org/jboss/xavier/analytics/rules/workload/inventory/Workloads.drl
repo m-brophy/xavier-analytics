@@ -127,6 +127,21 @@ rule "Workloads_SAP_HANA"
         }
 end
 
+rule "Workloads_Clickhouse_Server"
+       when
+           vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+               systemServicesNames != null,
+               systemServicesNames.size() > 0,
+               servicesContainsString(this,"clickhouse-server")
+           )
+           workloadInventoryReport : WorkloadInventoryReportModel()
+       then
+           modify(workloadInventoryReport)
+           {
+               addWorkload("Clickhouse Server")
+           }
+end
+
 rule "Workloads_Microsoft_SQL_Server_On_Linux"
        when
            vmWorkloadInventoryModel : VMWorkloadInventoryModel(
@@ -142,6 +157,7 @@ rule "Workloads_Microsoft_SQL_Server_On_Linux"
            }
 end
 
+
 rule "Workloads_Microsoft_SQL_Server_On_Windows"
        when
            vmWorkloadInventoryModel : VMWorkloadInventoryModel(
@@ -155,6 +171,21 @@ rule "Workloads_Microsoft_SQL_Server_On_Windows"
            modify(workloadInventoryReport)
            {
                addWorkload("Microsoft SQL Server")
+           }
+end
+
+rule "Workloads_Artifactory"
+       when
+           vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+               systemServicesNames != null,
+               systemServicesNames.size() > 0,
+               servicesContainsString(this,"artifactory")
+           )
+           workloadInventoryReport : WorkloadInventoryReportModel()
+       then
+           modify(workloadInventoryReport)
+           {
+               addWorkload("Artifactory")
            }
 end
 
