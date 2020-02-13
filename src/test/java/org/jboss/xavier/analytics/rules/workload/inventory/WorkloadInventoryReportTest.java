@@ -2310,9 +2310,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setDiskSpace(100000001L);
         vmWorkloadInventoryModel.setMemory(4096L);
         vmWorkloadInventoryModel.setCpuCores(4);
-        vmWorkloadInventoryModel.setGuestOSFullName("Microsoft Windows XP");
+        vmWorkloadInventoryModel.setGuestOSFullName("Microsoft Windows XP Professional (32-bit)");
         // keep it lower case to check that the rules evaluate it ignoring the case
-        vmWorkloadInventoryModel.setOsProductName("xp");
+        vmWorkloadInventoryModel.setOsProductName("Microsoft Windows XP Professional (32-bit)");
         vmWorkloadInventoryModel.setProduct("VMware vCenter");
         vmWorkloadInventoryModel.setVersion("6.5");
         vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
@@ -2372,8 +2372,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(100000001L,workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096,workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4,workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertEquals("Microsoft Windows XP",workloadInventoryReportModel.getOsDescription());
-        Assert.assertEquals("xp",workloadInventoryReportModel.getOsName());
+        Assert.assertEquals("Microsoft Windows XP Professional (32-bit)",workloadInventoryReportModel.getOsDescription());
+        Assert.assertEquals("Microsoft Windows XP Professional (32-bit)",workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());

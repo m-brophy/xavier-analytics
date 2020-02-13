@@ -3,6 +3,8 @@ package org.jboss.xavier.analytics.functions;
 import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Optional;
 
 public class HelperFunctions
 {
@@ -13,27 +15,21 @@ public class HelperFunctions
 
     public static boolean isSupportedOS(String osToCheck)
     {
-        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isSupported()
-                                                                        && !isBlacklistedOS(osToCheck));
+        return OSSupport.findOSSupportForOS(osToCheck)
+                .map(OSSupport::isSupported)
+                .orElse(false);
     }
 
     public static boolean isConvertibleOS(String osToCheck)
     {
-        return Arrays.stream(OSSupport.values()).anyMatch(value -> (osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && !value.isSupported())
-                                                                        && !isBlacklistedOS(osToCheck));
+        return OSSupport.findOSSupportForOS(osToCheck)
+                .map(OSSupport::isConvertible)
+                .orElse(false);
     }
 
     public static boolean isUnsupportedOS(String osToCheck)
     {
-        if(osToCheck.equals(""))
-        {
-            return false;
-        }
-        else
-        {
-            return Arrays.stream(OSSupport.values()).noneMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase())
-                                                                        && !isBlacklistedOS(osToCheck));
-        }
+        return !isUndetectedOS(osToCheck) && !isSupportedOS(osToCheck) && !isConvertibleOS(osToCheck);
     }
 
     public static boolean isUndetectedOS(String osToCheck)
@@ -41,33 +37,24 @@ public class HelperFunctions
         return osToCheck == null || osToCheck.trim().isEmpty();
     }
 
-    //Any input OS string which matches a blacklisted OS value
-    //will override if they otherwise match as supported or convertible and mark them as Unsupported
-    private static boolean isBlacklistedOS(String osToCheck)
+    public enum OSSupport
     {
-        return Arrays.stream(OSSupport.values()).anyMatch(value -> osToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isBlacklisted());
-    }
-
-    public enum OSSupport{
-
         RHEL("Red Hat Enterprise Linux", true, false),
         SUSE("SUSE", true, false),
         WINDOWS("Windows",true, false),
-        ORACLE("Oracle Enterprise Linux",false, false),
-        CENTOS("CentOS",false, false),
-        WINDOWS_XP("XP", false, true);
-
-        
+        ORACLE("Oracle Enterprise Linux",false, true),
+        CENTOS("CentOS",false, true),
+        WINDOWS_XP("Windows XP", false, false);
 
         private final String name;
         private final boolean isSupported;
-        private final boolean isBlacklisted;
+        private final boolean isConvertible;
 
-        OSSupport(String name, boolean isSupported, boolean isBlacklisted)
+        OSSupport(String name, boolean isSupported, boolean isConvertible)
         {
             this.name = name;
             this.isSupported = isSupported;
-            this.isBlacklisted  = isBlacklisted;
+            this.isConvertible = isConvertible;
         }
 
         boolean isSupported()
@@ -80,7 +67,19 @@ public class HelperFunctions
             return this.name;
         }
 
-        boolean isBlacklisted() {return this.isBlacklisted;}
+        boolean isConvertible()
+        {
+            return this.isConvertible;
+        }
+
+        public static Optional<OSSupport> findOSSupportForOS(String osName)
+        {
+            return Arrays.stream(OSSupport.values())
+                    .filter(os -> osName.toLowerCase().contains(os.getName().toLowerCase()))
+                    // then find the longest matched OSSupport name and return OSSupport as result
+                    // Example: "Microsoft Windows XP Professional" would match both "Windows" and "Windows XP" but the latter is the best match
+                    .max(Comparator.comparingInt(os -> os.getName().length()));
+        }
     }
 
     public enum FlagUnsuitabilityForOSPTarget{
