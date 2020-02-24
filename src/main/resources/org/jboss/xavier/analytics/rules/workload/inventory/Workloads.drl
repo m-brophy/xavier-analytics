@@ -247,8 +247,7 @@ rule "Workloads_Cisco_CallManager"
                      servicesContainsString(this,"cisco_history_log"),
                      files != null,
                      files.size() > 0,
-                     filesValuesContainsString(this, "/etc/group"),
-                     filesContentsContainsString(this, "ccmservice")
+                     fileNameAndContentsContainSpecifiedStrings(this, "/etc/group", "ccmservice")
             )
             workloadInventoryReport : WorkloadInventoryReportModel()
       then
