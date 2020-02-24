@@ -26,7 +26,15 @@ function boolean filesValuesContainsString(VMWorkloadInventoryModel vmWorkloadIn
 
 function boolean filesContentsContainsString(VMWorkloadInventoryModel vmWorkloadInventoryModel, String searchTerm)
 {
-    return vmWorkloadInventoryModel.getFiles().values().stream().anyMatch(value -> value.toLowerCase().contains(searchTerm.toLowerCase()));
+    return vmWorkloadInventoryModel.getFiles().values().stream().anyMatch(value -> value != null && value.toLowerCase().contains(searchTerm.toLowerCase()));
+}
+
+
+function boolean fileNameAndContentsContainSpecifiedStrings(VMWorkloadInventoryModel vmWorkloadInventoryModel, String nameSearchTerm, String contentsSearchTerm)
+{
+    return vmWorkloadInventoryModel.getFiles().keySet().stream().anyMatch(value -> value.toLowerCase().contains(nameSearchTerm.toLowerCase()) &&
+                                            vmWorkloadInventoryModel.getFiles().get(value) != null &&
+                                            vmWorkloadInventoryModel.getFiles().get(value).toLowerCase().contains(contentsSearchTerm.toLowerCase()));
 }
 
 rule "Workloads_Tomcat"
