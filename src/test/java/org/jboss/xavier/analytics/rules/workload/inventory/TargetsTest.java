@@ -15,7 +15,7 @@ public class TargetsTest extends BaseTest {
 
     public TargetsTest() {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/Targets.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory", 4);
+                "org.jboss.xavier.analytics.rules.workload.inventory", 5);
     }
 
     @Test
