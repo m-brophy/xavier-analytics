@@ -1921,7 +1921,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Copy basic fields and agenda controller",
                 // Flags
                 // Target
-                "Target_RHV", "Target_OSP", "TargetCNV",
+                "Target_RHV", "Target_OSP", "Target_CNV",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
