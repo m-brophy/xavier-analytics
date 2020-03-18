@@ -86,6 +86,11 @@ public class HelperFunctions
         RDM_DISK(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME, true, false),
         TOO_MANY_NICS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME, true, false),
         SHARED_DISK(WorkloadInventoryReportModel.SHARED_DISK_FLAG_NAME,true, true);
+    public enum FlagUnsuitabilityForOSPTarget{
+        RDM_DISK(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME, true),
+        TOO_MANY_NICS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME, true),
+        SHARED_DISK(WorkloadInventoryReportModel.SHARED_DISK_FLAG_NAME,true),
+        CPU_AFFINITY(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME, false);
 
         private final String name;
         private final boolean isUnsuitableForOSP;
