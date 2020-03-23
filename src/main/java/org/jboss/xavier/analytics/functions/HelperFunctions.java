@@ -86,6 +86,7 @@ public class HelperFunctions
         RDM_DISK(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME, true, false),
         TOO_MANY_NICS(WorkloadInventoryReportModel.MORE_THAN_4_NICS_FLAG_NAME, true, false),
         SHARED_DISK(WorkloadInventoryReportModel.SHARED_DISK_FLAG_NAME,true, true),
+        CPU_MEMORY_HOTPLUG(WorkloadInventoryReportModel.CPU_MEMORY_HOTPLUG_FLAG_NAME, true, true),
         CPU_AFFINITY(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME, false, true);
 
         private final String name;
