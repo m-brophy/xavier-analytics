@@ -79,7 +79,7 @@ rule "Target_CNV"
     then
         modify(workloadInventoryReport)
         {
-            addRecommendedTargetsIMS("CNV")
+            addRecommendedTargetsIMS(WorkloadInventoryReportModel.TARGET_CNV)
         }
 end
 

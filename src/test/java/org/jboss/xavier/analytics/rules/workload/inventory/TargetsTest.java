@@ -133,7 +133,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
 
     }
 
@@ -218,7 +218,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -247,7 +247,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -276,7 +276,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -305,7 +305,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -334,7 +334,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(2, report.getRecommendedTargetsIMS().size());
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -363,7 +363,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -392,7 +392,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
@@ -421,7 +421,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
         Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("Convert2RHEL".toLowerCase())));
+        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
     }
 
