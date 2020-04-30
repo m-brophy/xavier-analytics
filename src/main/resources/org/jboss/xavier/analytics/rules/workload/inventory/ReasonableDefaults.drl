@@ -41,3 +41,13 @@ rule "Fill 'Insights' field with reasonable default"
     then
         workloadInventoryReport.setInsightsEnabled(WorkloadInventoryReportModel.INSIGHTS_ENABLED_DEFAULT_VALUE);
 end
+
+rule "Fill 'osName' field with reasonable default"
+       when
+           workloadInventoryReport : WorkloadInventoryReportModel(
+               (osName == null && osDescription == null) ||
+               (osName != null && osName.isEmpty() && osDescription != null && osDescription.isEmpty())
+           )
+       then
+           workloadInventoryReport.setOsName(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE);
+   end
