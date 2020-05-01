@@ -263,7 +263,7 @@ public class ComplexityTest extends BaseTest {
         facts.put("agendaGroup", "Complexity");
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
-        workloadInventoryReportModel.setOsDescription("No OS Detected");
+        workloadInventoryReportModel.setOsDescription("Not detected");
         workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME);
         workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.SHARED_DISK_FLAG_NAME);
 
