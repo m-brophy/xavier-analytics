@@ -34,7 +34,7 @@ public class HelperFunctions
 
     public static boolean isUndetectedOS(String osToCheck)
     {
-        return osToCheck == null || osToCheck.trim().isEmpty();
+        return osToCheck == null || osToCheck.trim().isEmpty() || osToCheck.equals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE);
     }
 
     public enum OSSupport

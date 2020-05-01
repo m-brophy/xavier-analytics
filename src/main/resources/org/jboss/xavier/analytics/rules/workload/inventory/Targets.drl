@@ -86,7 +86,7 @@ end
 rule "Target_None"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
-            eval((osDescription != null && isUnsupportedOS(osDescription)) || isUndetectedOS(osDescription))
+            eval(( isUnsupportedOS(osDescription)) || isUndetectedOS(osDescription))
         )
     then
         modify(workloadInventoryReport)

@@ -36,6 +36,7 @@ public class HelperFunctionsTest {
                 {"Microsoft Windows XP Professional (32-bit)", false, false, true, false},
                 {"Enterprise", false, false, true, false},
                 {"", false, false, false, true},
+                {"No OS Detected", false, false, false, true},
         });
     }
 

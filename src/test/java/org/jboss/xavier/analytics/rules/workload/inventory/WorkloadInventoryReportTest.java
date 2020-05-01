@@ -1286,7 +1286,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(100000001L, workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096, workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4, workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertEquals("", workloadInventoryReportModel.getOsDescription());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getOsDescription());
         Assert.assertEquals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
@@ -1388,7 +1388,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(100000001L, workloadInventoryReportModel.getDiskSpace(), 0);
         Assert.assertEquals(4096, workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4, workloadInventoryReportModel.getCpuCores().intValue());
-        Assert.assertNull( workloadInventoryReportModel.getOsDescription());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getOsDescription());
         Assert.assertEquals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
