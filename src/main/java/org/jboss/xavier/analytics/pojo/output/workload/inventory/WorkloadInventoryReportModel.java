@@ -68,6 +68,7 @@ public class WorkloadInventoryReportModel
     private String host_name;
     private Boolean ssaEnabled;
     private Boolean insightsEnabled;
+    private String osFamily;
 
     public WorkloadInventoryReportModel() {}
 
@@ -259,5 +260,13 @@ public class WorkloadInventoryReportModel
 
     public void setInsightsEnabled(Boolean insightsEnabled) {
         this.insightsEnabled = insightsEnabled;
+    }
+
+    public String getOsFamily() {
+        return osFamily;
+    }
+
+    public void setOsFamily(String osFamily) {
+        this.osFamily = osFamily;
     }
 }
