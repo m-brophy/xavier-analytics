@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 44);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 52);
     }
 
     @Test
@@ -78,13 +78,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -120,6 +123,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -189,11 +194,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -230,6 +238,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -298,11 +308,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Affinity",
                 // Target
@@ -339,6 +352,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -409,11 +424,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
        Utils.verifyRulesFiredNames(this.agendaEventListener,
             // BasicFields
             "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+           "Fill 'osFamily' field with 'Other'",
+           // OSFamily
+           "RHEL_OSFamily",
             // Flags
            "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Memory_Add",
             // Target
@@ -450,6 +468,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -515,11 +535,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "OracleLinux_OSFamily",
                 // Flags
 
                 // Target
@@ -556,6 +579,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("Oracle Linux", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -620,11 +645,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Centos_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -661,6 +689,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("CentOS", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertEquals(1, flagsIMS.size());
@@ -719,7 +749,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -727,6 +757,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Debian_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -764,6 +797,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -828,13 +863,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -870,6 +908,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -932,13 +972,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //Reasonabledefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Add",
                 // Target
@@ -975,6 +1018,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1037,13 +1082,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Memory_Add",
                 // Target
@@ -1080,6 +1128,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1142,13 +1192,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Remove",
                 // Target
@@ -1185,6 +1238,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1250,13 +1305,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(5, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Target
                 "Target_None",
@@ -1292,6 +1348,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -1356,13 +1414,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Cpu_Add",
                 // Target
@@ -1399,6 +1460,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1461,13 +1524,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -1503,6 +1569,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1562,13 +1630,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -1663,13 +1734,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -1705,6 +1779,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1764,13 +1840,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -1806,6 +1885,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1865,13 +1946,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -1907,6 +1991,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1966,13 +2052,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2008,6 +2097,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2067,13 +2158,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2109,6 +2203,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2170,13 +2266,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2212,6 +2311,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2273,7 +2374,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(13, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -2281,13 +2382,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Windows","SsaEnabled_System_Services_Present"
+                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2317,6 +2421,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2375,11 +2481,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2417,6 +2526,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
         //
         Assert.assertEquals(WorkloadInventoryReportModel.INSIGHTS_ENABLED_DEFAULT_VALUE,workloadInventoryReportModel.getInsightsEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2478,13 +2589,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2520,6 +2634,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2580,13 +2696,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -2622,6 +2741,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2683,13 +2804,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(7, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
 
                 // Target
@@ -2726,6 +2850,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2780,7 +2906,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -2788,6 +2914,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Target
                 "Target_None",
@@ -2824,6 +2951,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -2854,7 +2982,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setProduct("VMware vCenter");
         vmWorkloadInventoryModel.setVersion("6.5");
         vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
-
         //Flags
 
         Map<String, String> files = new HashMap<>();
@@ -2876,7 +3003,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -2884,6 +3011,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Ubuntu_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
@@ -2920,6 +3050,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("Ubuntu", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -2972,7 +3104,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -2980,6 +3112,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Target
                 "Target_None",
@@ -3016,6 +3149,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3068,7 +3202,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -3076,6 +3210,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Target
                 "Target_None",
@@ -3112,6 +3247,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3164,7 +3300,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -3172,6 +3308,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "SUSE_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP",
@@ -3208,6 +3347,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("SUSE", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3261,7 +3402,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -3269,6 +3410,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Target
                 "Target_None",
@@ -3305,6 +3447,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3357,7 +3500,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -3365,6 +3508,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Windows_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
@@ -3401,6 +3547,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("Windows Other", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3453,7 +3601,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -3461,6 +3609,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // ReasonableDefaults
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Debian_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
@@ -3497,6 +3648,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
+        // OSFamily
+        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3553,13 +3706,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -3595,6 +3751,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3654,13 +3812,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -3696,6 +3857,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3755,13 +3918,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -3797,6 +3963,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3856,13 +4024,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -3898,6 +4069,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3957,13 +4130,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -3999,6 +4175,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4058,13 +4236,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -4100,6 +4281,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4167,13 +4350,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -4209,6 +4395,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());

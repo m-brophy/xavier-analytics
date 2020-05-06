@@ -5,7 +5,7 @@ import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInvento
 import java.util.HashSet;
 
 dialect "java"
-agenda-group "Complexity"
+agenda-group "OSFamily"
 lock-on-active true
 auto-focus false
 
@@ -17,6 +17,7 @@ function boolean osDescriptionContainsString(String osDescription, String match)
 rule "RHEL_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "Red Hat Enterprise Linux")
         )
@@ -30,6 +31,7 @@ end
 rule "SUSE_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "SUSE")
         )
@@ -43,6 +45,7 @@ end
 rule "Windows_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "Windows")
         )
@@ -62,6 +65,7 @@ end
 rule "OracleLinux_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "Oracle Linux")
         )
@@ -75,6 +79,7 @@ end
 rule "Centos_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "CentOS")
         )
@@ -88,6 +93,7 @@ end
 rule "Ubuntu_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "Ubuntu")
         )
@@ -101,6 +107,7 @@ end
 rule "Debian_OSFamily"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
+            osFamily == null,
             osDescription != null,
             osDescriptionContainsString(osDescription, "Debian")
         )

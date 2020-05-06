@@ -48,5 +48,5 @@ rule "Fill 'osFamily' field with 'Other'"
             osFamily == null
         )
     then
-        workloadInventoryReport.setOsFamily("Other");
+        workloadInventoryReport.setOsFamily(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE);
 end
