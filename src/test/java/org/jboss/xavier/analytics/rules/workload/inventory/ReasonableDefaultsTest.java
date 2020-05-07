@@ -16,7 +16,7 @@ public class ReasonableDefaultsTest extends BaseTest {
     public ReasonableDefaultsTest()
     {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/ReasonableDefaults.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory", 5);
+                "org.jboss.xavier.analytics.rules.workload.inventory", 6);
     }
 
     @Test
@@ -31,14 +31,16 @@ public class ReasonableDefaultsTest extends BaseTest {
         facts.put("vmWorkloadInventoryModel", workloadInventoryReportModel);
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "Fill 'datacenter' field with reasonable default");
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "Fill 'datacenter' field with reasonable default",
+                "Fill 'osDescription' field with reasonable default");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, report.getDatacenter());
+        Assert.assertEquals("osName",report.getOsDescription());
     }
 
     @Test
@@ -69,7 +71,7 @@ public class ReasonableDefaultsTest extends BaseTest {
         workloadInventoryReportModel.setCluster("cluster");
         workloadInventoryReportModel.setDatacenter("datacenter");
         workloadInventoryReportModel.setInsightsEnabled(true);
-        workloadInventoryReportModel.setOsName("osName");
+        workloadInventoryReportModel.setOsDescription("osDescription");
 
         Map<String, Object> facts = new HashMap<>();
         facts.put("vmWorkloadInventoryModel", workloadInventoryReportModel);
@@ -91,7 +93,7 @@ public class ReasonableDefaultsTest extends BaseTest {
         workloadInventoryReportModel.setCluster("cluster");
         workloadInventoryReportModel.setDatacenter("datacenter");
         workloadInventoryReportModel.setHost_name("host name");
-        workloadInventoryReportModel.setOsName("osName");
+        workloadInventoryReportModel.setOsDescription("osDescription");
 
         Map<String, Object> facts = new HashMap<>();
         facts.put("vmWorkloadInventoryModel", workloadInventoryReportModel);
@@ -120,7 +122,7 @@ public class ReasonableDefaultsTest extends BaseTest {
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
         Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "Fill 'osName' field with reasonable default");
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "Fill 'OS' fields with reasonable default");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
@@ -136,7 +138,7 @@ public class ReasonableDefaultsTest extends BaseTest {
         workloadInventoryReportModel.setCluster("cluster");
         workloadInventoryReportModel.setHost_name("host");
         workloadInventoryReportModel.setInsightsEnabled(true);
-        workloadInventoryReportModel.setOsName("osName");
+        workloadInventoryReportModel.setOsDescription("osDescription");
 
         Map<String, Object> facts = new HashMap<>();
         facts.put("vmWorkloadInventoryModel", workloadInventoryReportModel);

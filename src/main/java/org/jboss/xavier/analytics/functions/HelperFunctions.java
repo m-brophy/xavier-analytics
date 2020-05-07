@@ -27,6 +27,9 @@ public class HelperFunctions
                 .orElse(false);
     }
 
+    /*
+    
+     */
     public static boolean isUnsupportedOS(String osToCheck)
     {
         return !isUndetectedOS(osToCheck) && !isSupportedOS(osToCheck) && !isConvertibleOS(osToCheck);
