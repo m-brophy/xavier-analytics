@@ -28,7 +28,8 @@ public class HelperFunctions
     }
 
     /*
-    
+    functionally, isUnsupported is the absence of any of the other OS categorizations being true
+    so we check they are all false to return true for this method
      */
     public static boolean isUnsupportedOS(String osToCheck)
     {
