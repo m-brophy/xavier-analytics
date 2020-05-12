@@ -86,15 +86,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Insights_Enabled", "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_8_On_Linux"
+                "Insights_Enabled", "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_8_On_Linux",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -123,8 +123,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -142,7 +140,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(workloadInventoryReportModel.getInsightsEnabled());
         Assert.assertEquals(1, workloads.size());
         Assert.assertTrue(workloads.contains("Oracle JDK 8"));
-
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -200,8 +199,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -209,7 +206,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_11_On_Linux"
+                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_11_On_Linux",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -238,8 +237,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -258,6 +255,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertFalse(workloadInventoryReportModel.getInsightsEnabled());
         Assert.assertEquals(1, workloads.size());
         Assert.assertTrue(workloads.contains("Oracle JDK 11"));
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -314,8 +313,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Affinity",
                 // Target
@@ -323,7 +320,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_13_On_Linux"
+                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_13_On_Linux",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -352,8 +351,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -371,6 +368,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
         Assert.assertEquals(1, workloads.size());
         Assert.assertTrue(workloads.contains("Oracle JDK 13"));
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -430,8 +429,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
             // BasicFields
             "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
            "Fill 'osFamily' field with 'Other'",
-           // OSFamily
-           "RHEL_OSFamily",
             // Flags
            "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Memory_Add",
             // Target
@@ -439,7 +436,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
             // Complexity
            "More_Than_One_Flag_Supported_OS",
            // Workloads
-           "SsaEnabled_System_Services_Present"
+           "SsaEnabled_System_Services_Present",
+           // OSFamily
+           "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -468,8 +467,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -484,6 +481,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -541,8 +540,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "OracleLinux_OSFamily",
                 // Flags
 
                 // Target
@@ -550,7 +547,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Convertible_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "OracleLinux_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -579,8 +578,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("Oracle Linux", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -594,6 +591,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         //Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("Oracle Linux", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -651,8 +650,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Centos_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -660,7 +657,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Or_More_Flags_Convertible_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "Centos_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -689,8 +688,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("CentOS", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertEquals(1, flagsIMS.size());
@@ -703,6 +700,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_HARD, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("CentOS", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -758,8 +757,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Debian_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
                 // Target
@@ -767,7 +764,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Or_More_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "Debian_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -797,8 +796,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -812,6 +809,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -871,15 +870,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -908,8 +907,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -923,6 +920,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -980,8 +979,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //Reasonabledefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Add",
                 // Target
@@ -989,7 +986,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1018,8 +1017,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1033,6 +1030,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1090,8 +1089,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Memory_Add",
                 // Target
@@ -1099,7 +1096,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1128,8 +1127,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1143,6 +1140,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1200,8 +1199,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Remove",
                 // Target
@@ -1209,7 +1206,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "One_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1238,8 +1237,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1253,6 +1250,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1348,8 +1347,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -1360,6 +1357,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNKNOWN, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals(WorkloadInventoryReportModel.OS_FAMILY_DEFAULT_VALUE, workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1422,8 +1421,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Cpu_Add",
                 // Target
@@ -1431,7 +1428,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "More_Than_One_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Tomcat", "SsaEnabled_System_Services_Present"
+                "Workloads_Tomcat", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1460,8 +1459,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1478,6 +1475,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("tomcat")));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1532,15 +1531,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_EAP", "SsaEnabled_System_Services_Present"
+                "Workloads_EAP", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1569,8 +1568,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1584,6 +1581,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Red Hat JBoss EAP".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1638,15 +1637,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Websphere", "SsaEnabled_System_Services_Present"
+                "Workloads_Websphere", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1688,6 +1687,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("IBM Websphere App Server".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1742,15 +1743,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Weblogic", "SsaEnabled_System_Services_Present"
+                "Workloads_Weblogic", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1779,8 +1780,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1794,6 +1793,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Oracle Weblogic".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1848,15 +1849,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Oracle_DB", "SsaEnabled_System_Services_Present"
+                "Workloads_Oracle_DB", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1885,8 +1886,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1900,6 +1899,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Oracle Database".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -1954,15 +1955,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Clickhouse_Server", "SsaEnabled_System_Services_Present"
+                "Workloads_Clickhouse_Server", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1991,8 +1992,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2006,6 +2005,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Clickhouse Server".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2060,15 +2061,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_SAP_HANA", "SsaEnabled_System_Services_Present"
+                "Workloads_SAP_HANA", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2097,8 +2098,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2112,6 +2111,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("SAP HANA".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2166,15 +2167,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Linux", "SsaEnabled_System_Services_Present"
+                "Workloads_Microsoft_SQL_Server_On_Linux", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2203,8 +2204,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2218,6 +2217,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Microsoft SQL Server".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2274,15 +2275,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present"
+                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2311,8 +2312,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2326,6 +2325,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Microsoft SQL Server".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
 
@@ -2383,15 +2384,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present"
+                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2421,8 +2422,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2435,6 +2434,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertNotNull(workloadInventoryReportModel.getWorkloads());
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Microsoft SQL Server".toLowerCase())));
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2487,15 +2488,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Artifactory", "SsaEnabled_System_Services_Present"
+                "Workloads_Artifactory", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2526,8 +2527,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
         //
         Assert.assertEquals(WorkloadInventoryReportModel.INSIGHTS_ENABLED_DEFAULT_VALUE,workloadInventoryReportModel.getInsightsEnabled());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2541,6 +2540,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Artifactory".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2597,15 +2598,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_F5", "SsaEnabled_System_Services_Present"
+                "Workloads_F5", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2634,8 +2635,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2649,6 +2648,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("F5".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -2704,15 +2705,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaEnabled_System_Services_Present"
+                "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2741,8 +2742,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2754,6 +2753,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Workloads
         Assert.assertNull(workloadInventoryReportModel.getWorkloads());
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
 
@@ -2812,8 +2813,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
 
                 // Target
@@ -2821,7 +2820,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2850,8 +2851,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2862,6 +2861,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY, workloadInventoryReportModel.getComplexity());
         // Workloads
         Assert.assertFalse(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
 
@@ -3012,15 +3013,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Ubuntu_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Ubuntu_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3050,8 +3051,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("Ubuntu", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3062,6 +3061,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED, workloadInventoryReportModel.getComplexity());
         // Workloads
+        // OSFamily
+        Assert.assertEquals("Ubuntu", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3309,15 +3310,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "SUSE_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "SUSE_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3347,8 +3348,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("SUSE", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3360,6 +3359,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY, workloadInventoryReportModel.getComplexity());
         // Workloads
+        // OSFamily
+        Assert.assertEquals("SUSE", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3509,15 +3510,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Windows_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Windows_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3547,8 +3548,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("Windows Other", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3559,6 +3558,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED, workloadInventoryReportModel.getComplexity());
         // Workloads
+        // OSFamily
+        Assert.assertEquals("Windows Other", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3610,15 +3611,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Debian_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Debian_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3648,8 +3649,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(WorkloadInventoryReportModel.DATACENTER_DEFAULT_VALUE, workloadInventoryReportModel.getDatacenter());
         Assert.assertEquals(WorkloadInventoryReportModel.CLUSTER_DEFAULT_VALUE, workloadInventoryReportModel.getCluster());
         Assert.assertEquals(WorkloadInventoryReportModel.HOST_NAME_DEFAULT_VALUE, workloadInventoryReportModel.getHost_name());
-        // OSFamily
-        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -3660,6 +3659,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_UNSUPPORTED, workloadInventoryReportModel.getComplexity());
         // Workloads
+        // OSFamily
+        Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3714,15 +3715,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3751,8 +3752,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3766,6 +3765,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3820,15 +3821,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3857,8 +3858,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3872,6 +3871,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -3926,15 +3927,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3963,8 +3964,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3978,6 +3977,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -4032,15 +4033,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4069,8 +4070,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4084,6 +4083,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -4138,15 +4139,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4175,8 +4176,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4190,6 +4189,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -4244,15 +4245,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present"
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4281,8 +4282,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4296,6 +4295,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(1, workloadInventoryReportModel.getWorkloads().size());
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Citrix Unidesk".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -4358,15 +4359,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "Workloads_Cisco_CallManager", "Insights_Enabled", "SsaEnabled_System_Services_Present"
+                "Workloads_Cisco_CallManager", "Insights_Enabled", "SsaEnabled_System_Services_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4395,8 +4396,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());
         Assert.assertEquals(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"), workloadInventoryReportModel.getCreationDate());
-        // OSFamily
-        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -4411,6 +4410,8 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(workload -> workload.toLowerCase().contains("Cisco CallManager".toLowerCase())));
         Assert.assertTrue(workloadInventoryReportModel.getInsightsEnabled());
         Assert.assertTrue(workloadInventoryReportModel.getSsaEnabled());
+        // OSFamily
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
     @Test
@@ -4450,8 +4451,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "RHEL_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4460,7 +4459,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "RHEL_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4511,8 +4512,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "SUSE_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4520,7 +4519,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "SUSE_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4571,8 +4572,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Windows_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4581,7 +4580,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Windows_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4632,8 +4633,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Windows_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4642,7 +4641,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Windows_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4693,15 +4694,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Windows_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Windows_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4752,8 +4753,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "OracleLinux_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4762,7 +4761,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Convertible_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "OracleLinux_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4813,8 +4814,6 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Centos_OSFamily",
                 // Flags
                 // Target
                 "Target_RHV",
@@ -4823,7 +4822,9 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Complexity
                 "No_Flag_Convertible_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Centos_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4874,15 +4875,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Ubuntu_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Ubuntu_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4933,15 +4934,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
-                // OSFamily
-                "Debian_OSFamily",
                 // Flags
                 // Target
                 "Target_None",
                 // Complexity
                 "No_Flags_Not_Supported_OS",
                 // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "SsaDisabled_System_Services_Not_Present",
+                // OSFamily
+                "Debian_OSFamily"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
