@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 46);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 47);
     }
 
     @Test
@@ -78,13 +78,13 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
-                "Fill 'Insights' field with reasonable default",
+                "Fill 'Insights' field with reasonable default", "Fill 'osName' field with reasonable default",
                 // Flags
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
@@ -115,7 +115,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals(4096, workloadInventoryReportModel.getMemory().intValue());
         Assert.assertEquals(4, workloadInventoryReportModel.getCpuCores().intValue());
         Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)", workloadInventoryReportModel.getOsDescription());
-        Assert.assertEquals(null, workloadInventoryReportModel.getOsName());
+        Assert.assertEquals("Red Hat Enterprise Linux Server release 7.6 (Maipo)", workloadInventoryReportModel.getOsName());
         Assert.assertEquals("VMware vCenter", workloadInventoryReportModel.getProduct());
         Assert.assertEquals("6.5", workloadInventoryReportModel.getVersion());
         Assert.assertEquals("esx13.v2v.bos.redhat.com", workloadInventoryReportModel.getHost_name());

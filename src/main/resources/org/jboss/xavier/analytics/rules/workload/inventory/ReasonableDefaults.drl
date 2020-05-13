@@ -65,3 +65,16 @@ rule "Fill 'osDescription' field with reasonable default"
            setOsDescription(workloadInventoryReport.getOsName())
        }
 end
+
+rule "Fill 'osName' field with reasonable default"
+       when
+           workloadInventoryReport : WorkloadInventoryReportModel(
+               StringUtils.isBlank(osName),
+               StringUtils.isNotBlank(osDescription)
+           )
+       then
+       modify(workloadInventoryReport)
+       {
+           setOsName(workloadInventoryReport.getOsDescription())
+       }
+end
