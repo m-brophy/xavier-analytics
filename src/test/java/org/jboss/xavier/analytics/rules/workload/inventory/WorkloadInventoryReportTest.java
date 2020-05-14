@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 52);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 53);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(12, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -86,15 +86,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
-                // Target
-                "Target_RHV", "Target_OSP", "Target_OCP",
-                // Complexity
-                "No_Flag_Supported_OS",
                 // Workloads
                 "Insights_Enabled", "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_8_On_Linux",
-                // OSFamily
-                "RHEL_OSFamily"
+                // Target
+                "Target_RHV", "Target_OSP", "Target_OCP", "Target_OpenJDK",
+                // Complexity
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -128,10 +128,11 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertNull(flagsIMS);
         // Targets
         Set<String> targets = workloadInventoryReportModel.getRecommendedTargetsIMS();
-        Assert.assertEquals(3, targets.size());
+        Assert.assertEquals(4, targets.size());
         Assert.assertTrue(targets.contains("RHV"));
         Assert.assertTrue(targets.contains("OSP"));
         Assert.assertTrue(targets.contains("OCP"));
+        Assert.assertTrue(targets.contains("OpenJDK"));
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_EASY, workloadInventoryReportModel.getComplexity());
         // Workloads
@@ -193,22 +194,22 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
-                // Target
-                "Target_RHV", "Target_OCP",
-                // Complexity
-                "One_Flag_Supported_OS",
                 // Workloads
                 "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_11_On_Linux",
-                // OSFamily
-                "RHEL_OSFamily"
+                // Target
+                "Target_RHV", "Target_OCP", "Target_OpenJDK",
+                // Complexity
+                "One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -244,9 +245,10 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
         // Targets
         Set<String> targets = workloadInventoryReportModel.getRecommendedTargetsIMS();
-        Assert.assertEquals(2, targets.size());
+        Assert.assertEquals(3, targets.size());
         Assert.assertTrue(targets.contains("RHV"));
         Assert.assertTrue(targets.contains("OCP"));
+        Assert.assertTrue(targets.contains("OpenJDK"));
         // Complexity
         Assert.assertEquals(WorkloadInventoryReportModel.COMPLEXITY_MEDIUM, workloadInventoryReportModel.getComplexity());
         //Workloads
@@ -313,16 +315,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Affinity",
+                // Workloads
+                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_13_On_Linux",
                 // Target
                 "Target_RHV", "Target_OSP",
                 // Complexity
-                "One_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_13_On_Linux",
-                // OSFamily
-                "RHEL_OSFamily"
+                "One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -429,16 +431,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
             // BasicFields
             "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
            "Fill 'osFamily' field with 'Other'",
+           // OSFamily
+           "RHEL_OSFamily",
             // Flags
            "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Memory_Add",
+           // Workloads
+           "SsaEnabled_System_Services_Present",
             // Target
            "Target_RHV",
             // Complexity
-           "More_Than_One_Flag_Supported_OS",
-           // Workloads
-           "SsaEnabled_System_Services_Present",
-           // OSFamily
-           "RHEL_OSFamily"
+           "More_Than_One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -540,16 +542,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "OracleLinux_OSFamily",
                 // Flags
-
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_RHEL",
                 // Complexity
-                "No_Flag_Convertible_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "OracleLinux_OSFamily"
+                "No_Flag_Convertible_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -650,16 +651,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Centos_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_RHEL",
                 // Complexity
-                "One_Or_More_Flags_Convertible_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "Centos_OSFamily"
+                "One_Or_More_Flags_Convertible_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -757,16 +758,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Debian_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk",
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "One_Or_More_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "Debian_OSFamily"
+                "One_Or_More_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -870,15 +871,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -979,16 +980,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //Reasonabledefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Add",
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV",
                 // Complexity
-                "One_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1089,16 +1090,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Memory_Add",
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV",
                 // Complexity
-                "One_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1199,16 +1200,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Cpu_Memory_Hotplug_Cpu_Remove",
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV",
                 // Complexity
-                "One_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1312,13 +1313,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
                 // Flags
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "Not_Detected_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present"
+                "Not_Detected_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1421,16 +1423,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
                 "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Cpu_Add",
+                // Workloads
+                "Workloads_Tomcat", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV",
                 // Complexity
-                "More_Than_One_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Tomcat", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "More_Than_One_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1531,15 +1533,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_EAP", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_EAP", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1637,15 +1639,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Websphere", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Websphere", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1743,15 +1745,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Weblogic", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Weblogic", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1849,15 +1851,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Oracle_DB", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Oracle_DB", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1955,15 +1957,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Clickhouse_Server", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Clickhouse_Server", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2061,15 +2063,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_SAP_HANA", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_SAP_HANA", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2167,15 +2169,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Microsoft_SQL_Server_On_Linux", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Linux", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2275,15 +2277,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2384,15 +2386,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Microsoft_SQL_Server_On_Windows", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2488,15 +2490,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // BasicFields
                 "Copy basic fields and agenda controller", "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Artifactory", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Artifactory", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2598,15 +2600,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_F5", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_F5", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2705,15 +2707,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2813,16 +2815,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
-
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -2916,13 +2917,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3013,15 +3015,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Ubuntu_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Ubuntu_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3114,13 +3116,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3212,13 +3215,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3310,15 +3314,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "SUSE_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV", "Target_OSP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "SUSE_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3412,13 +3416,14 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3510,15 +3515,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Windows_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Windows_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3611,15 +3616,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Debian_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Debian_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3715,15 +3720,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3821,15 +3826,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3927,15 +3932,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4033,15 +4038,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4139,15 +4144,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4245,15 +4250,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Citrix_Unidesk", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4359,15 +4364,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "Workloads_Cisco_CallManager", "Insights_Enabled", "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Cisco_CallManager", "Insights_Enabled", "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4451,17 +4456,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "RHEL_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4512,16 +4517,16 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "SUSE_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "SUSE_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4572,17 +4577,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Windows_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Windows_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4633,17 +4638,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Windows_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Windows_OSFamily"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4694,15 +4699,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Windows_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Windows_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4753,17 +4758,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "OracleLinux_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 "Target_RHEL",
                 // Complexity
-                "No_Flag_Convertible_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "OracleLinux_OSFamily"
+                "No_Flag_Convertible_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4814,17 +4819,17 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Centos_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_RHV",
                 "Target_OSP",
                 "Target_RHEL",
                 // Complexity
-                "No_Flag_Convertible_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Centos_OSFamily"
+                "No_Flag_Convertible_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4875,15 +4880,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Ubuntu_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Ubuntu_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4934,15 +4939,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Debian_OSFamily",
                 // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "No_Flags_Not_Supported_OS",
-                // Workloads
-                "SsaDisabled_System_Services_Not_Present",
-                // OSFamily
-                "Debian_OSFamily"
+                "No_Flags_Not_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -4954,5 +4959,283 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
         Assert.assertEquals("Debian", workloadInventoryReportModel.getOsFamily());
+    }
+
+    @Test
+    public void testRHELWithOracleJDK8_ThenOpenJDKShouldBeRecommendedTarget() throws ParseException {
+        //Basic Fields
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+
+        vmWorkloadInventoryModel.setProvider("provider");
+        vmWorkloadInventoryModel.setVmName("vmName");
+        vmWorkloadInventoryModel.setDiskSpace(100000001L);
+        vmWorkloadInventoryModel.setMemory(4096L);
+        vmWorkloadInventoryModel.setCpuCores(4);
+        vmWorkloadInventoryModel.setGuestOSFullName("Red Hat Enterprise Linux Server release 7.6 (Maipo)");
+        vmWorkloadInventoryModel.setOsProductName("productName");
+        vmWorkloadInventoryModel.setProduct("product");
+        vmWorkloadInventoryModel.setVersion("6.5");
+        vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
+
+        Map<String, String> files = new HashMap<>();
+        files.put("/usr/java/latest/release", "JAVA_VERSION=\"1.8");
+        vmWorkloadInventoryModel.setFiles(files);
+
+        // define the list of commands you want to be executed by Drools
+        Map<String, Object> facts = new HashMap<>();
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+        List<Command> commands = new ArrayList<>();
+        commands.addAll(Utils.newInsertCommands(facts));
+        commands.add(CommandFactory.newFireAllRules(NUMBER_OF_FIRED_RULE_KEY));
+        commands.add(CommandFactory.newQuery(QUERY_IDENTIFIER, "GetWorkloadInventoryReports"));
+        Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
+
+        // check that the number of rules fired is what you expect
+        Assert.assertEquals(14, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        // check the names of the rules fired are what you expect
+        Utils.verifyRulesFiredNames(this.agendaEventListener,
+                // BasicFields
+                "Copy basic fields and agenda controller",
+                // ReasonableDefaults
+                "Fill 'datacenter' field with reasonable default",
+                "Fill 'cluster' field with reasonable default",
+                "Fill 'host_name' field with reasonable default",
+                "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
+                // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
+                "Workloads_Oracle_JDK_8_On_Linux",
+                // Target
+                "Target_RHV",
+                "Target_OSP",
+                "Target_OCP",
+                "Target_OpenJDK",
+                // Complexity
+                "No_Flag_Supported_OS"
+        );
+
+        // retrieve the QueryResults that was available in the working memory from the results
+        QueryResults queryResults= (QueryResults) results.get(QUERY_IDENTIFIER);
+        Assert.assertEquals(1, queryResults.size());
+
+        QueryResultsRow queryResultsRow = queryResults.iterator().next();
+        Assert.assertThat(queryResultsRow.get("report"), instanceOf(WorkloadInventoryReportModel.class));
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
+        Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(target -> target.toLowerCase().contains("Oracle JDK 8".toLowerCase())));
+        Assert.assertTrue(workloadInventoryReportModel.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+    }
+
+    @Test
+    public void testRHELWithOracleJDK13_ThenOpenJDKShouldNotBeRecommendedTarget() throws ParseException {
+        //Basic Fields
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+
+        vmWorkloadInventoryModel.setProvider("provider");
+        vmWorkloadInventoryModel.setVmName("vmName");
+        vmWorkloadInventoryModel.setDiskSpace(100000001L);
+        vmWorkloadInventoryModel.setMemory(4096L);
+        vmWorkloadInventoryModel.setCpuCores(4);
+        vmWorkloadInventoryModel.setGuestOSFullName("Red Hat Enterprise Linux Server release 7.6 (Maipo)");
+        vmWorkloadInventoryModel.setOsProductName("productName");
+        vmWorkloadInventoryModel.setProduct("product");
+        vmWorkloadInventoryModel.setVersion("6.5");
+        vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
+
+        Map<String, String> files = new HashMap<>();
+        files.put("/usr/java/latest/release", "JAVA_VERSION=\"13");
+        vmWorkloadInventoryModel.setFiles(files);
+
+        // define the list of commands you want to be executed by Drools
+        Map<String, Object> facts = new HashMap<>();
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+        List<Command> commands = new ArrayList<>();
+        commands.addAll(Utils.newInsertCommands(facts));
+        commands.add(CommandFactory.newFireAllRules(NUMBER_OF_FIRED_RULE_KEY));
+        commands.add(CommandFactory.newQuery(QUERY_IDENTIFIER, "GetWorkloadInventoryReports"));
+        Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
+
+        // check that the number of rules fired is what you expect
+        Assert.assertEquals(13, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        // check the names of the rules fired are what you expect
+        Utils.verifyRulesFiredNames(this.agendaEventListener,
+                // BasicFields
+                "Copy basic fields and agenda controller",
+                // ReasonableDefaults
+                "Fill 'datacenter' field with reasonable default",
+                "Fill 'cluster' field with reasonable default",
+                "Fill 'host_name' field with reasonable default",
+                "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "RHEL_OSFamily",
+                // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
+                "Workloads_Oracle_JDK_13_On_Linux",
+                // Target
+                "Target_RHV",
+                "Target_OSP",
+                "Target_OCP",
+                // Complexity
+                "No_Flag_Supported_OS"
+        );
+
+        // retrieve the QueryResults that was available in the working memory from the results
+        QueryResults queryResults= (QueryResults) results.get(QUERY_IDENTIFIER);
+        Assert.assertEquals(1, queryResults.size());
+
+        QueryResultsRow queryResultsRow = queryResults.iterator().next();
+        Assert.assertThat(queryResultsRow.get("report"), instanceOf(WorkloadInventoryReportModel.class));
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
+        Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
+        Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(target -> target.toLowerCase().contains("Oracle JDK 13".toLowerCase())));
+        Assert.assertFalse(workloadInventoryReportModel.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+    }
+
+    @Test
+    public void testUbuntuWithOracleJDK11_ThenOpenJDKShouldNotBeRecommendedTarget() throws ParseException {
+        //Basic Fields
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+
+        vmWorkloadInventoryModel.setProvider("provider");
+        vmWorkloadInventoryModel.setVmName("vmName");
+        vmWorkloadInventoryModel.setDiskSpace(100000001L);
+        vmWorkloadInventoryModel.setMemory(4096L);
+        vmWorkloadInventoryModel.setCpuCores(4);
+        vmWorkloadInventoryModel.setGuestOSFullName("Ubuntu");
+        vmWorkloadInventoryModel.setOsProductName("productName");
+        vmWorkloadInventoryModel.setProduct("product");
+        vmWorkloadInventoryModel.setVersion("6.5");
+        vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
+
+        Map<String, String> files = new HashMap<>();
+        files.put("/usr/java/latest/release", "JAVA_VERSION=\"11");
+        vmWorkloadInventoryModel.setFiles(files);
+
+        // define the list of commands you want to be executed by Drools
+        Map<String, Object> facts = new HashMap<>();
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+        List<Command> commands = new ArrayList<>();
+        commands.addAll(Utils.newInsertCommands(facts));
+        commands.add(CommandFactory.newFireAllRules(NUMBER_OF_FIRED_RULE_KEY));
+        commands.add(CommandFactory.newQuery(QUERY_IDENTIFIER, "GetWorkloadInventoryReports"));
+        Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
+
+        // check that the number of rules fired is what you expect
+        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        // check the names of the rules fired are what you expect
+        Utils.verifyRulesFiredNames(this.agendaEventListener,
+                // BasicFields
+                "Copy basic fields and agenda controller",
+                // ReasonableDefaults
+                "Fill 'datacenter' field with reasonable default",
+                "Fill 'cluster' field with reasonable default",
+                "Fill 'host_name' field with reasonable default",
+                "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Ubuntu_OSFamily",
+                // Flags
+                // Workloads
+                "SsaDisabled_System_Services_Not_Present",
+                "Workloads_Oracle_JDK_11_On_Linux",
+                // Target
+                "Target_None",
+                // Complexity
+                "No_Flags_Not_Supported_OS"
+        );
+
+        // retrieve the QueryResults that was available in the working memory from the results
+        QueryResults queryResults= (QueryResults) results.get(QUERY_IDENTIFIER);
+        Assert.assertEquals(1, queryResults.size());
+
+        QueryResultsRow queryResultsRow = queryResults.iterator().next();
+        Assert.assertThat(queryResultsRow.get("report"), instanceOf(WorkloadInventoryReportModel.class));
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
+        Assert.assertEquals("Ubuntu", workloadInventoryReportModel.getOsFamily());
+        Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(target -> target.toLowerCase().contains("Oracle JDK 11".toLowerCase())));
+        Assert.assertFalse(workloadInventoryReportModel.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+    }
+
+    @Test
+    public void testCentOSWithOracleJDK11AndWeblogic_ThenOpenJDKShouldNotBeRecommendedTarget() throws ParseException {
+        //Basic Fields
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+
+        vmWorkloadInventoryModel.setProvider("provider");
+        vmWorkloadInventoryModel.setVmName("vmName");
+        vmWorkloadInventoryModel.setDiskSpace(100000001L);
+        vmWorkloadInventoryModel.setMemory(4096L);
+        vmWorkloadInventoryModel.setCpuCores(4);
+        vmWorkloadInventoryModel.setGuestOSFullName("CentOS Linux release 7.6.1810 (Core)");
+        vmWorkloadInventoryModel.setOsProductName("productName");
+        vmWorkloadInventoryModel.setProduct("product");
+        vmWorkloadInventoryModel.setVersion("6.5");
+        vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
+
+        Map<String, String> files = new HashMap<>();
+        files.put("/usr/java/latest/release", "JAVA_VERSION=\"11");
+        vmWorkloadInventoryModel.setFiles(files);
+
+        List<String> systemServicesNames = new ArrayList<>();
+        systemServicesNames.add("unix_service");
+        systemServicesNames.add("wls_adminmanager");
+        vmWorkloadInventoryModel.setSystemServicesNames(systemServicesNames);
+
+        // define the list of commands you want to be executed by Drools
+        Map<String, Object> facts = new HashMap<>();
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+        List<Command> commands = new ArrayList<>();
+        commands.addAll(Utils.newInsertCommands(facts));
+        commands.add(CommandFactory.newFireAllRules(NUMBER_OF_FIRED_RULE_KEY));
+        commands.add(CommandFactory.newQuery(QUERY_IDENTIFIER, "GetWorkloadInventoryReports"));
+        Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
+
+        // check that the number of rules fired is what you expect
+        Assert.assertEquals(14, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        // check the names of the rules fired are what you expect
+        Utils.verifyRulesFiredNames(this.agendaEventListener,
+                // BasicFields
+                "Copy basic fields and agenda controller",
+                // ReasonableDefaults
+                "Fill 'datacenter' field with reasonable default",
+                "Fill 'cluster' field with reasonable default",
+                "Fill 'host_name' field with reasonable default",
+                "Fill 'Insights' field with reasonable default",
+                "Fill 'osFamily' field with 'Other'",
+                // OSFamily
+                "Centos_OSFamily",
+                // Flags
+                // Workloads
+                "Workloads_Weblogic",
+                "SsaEnabled_System_Services_Present",
+                "Workloads_Oracle_JDK_11_On_Linux",
+                // Target
+                "Target_RHV",
+                "Target_OSP",
+                "Target_RHEL",
+                // Complexity
+                "No_Flag_Convertible_OS"
+        );
+
+        // retrieve the QueryResults that was available in the working memory from the results
+        QueryResults queryResults= (QueryResults) results.get(QUERY_IDENTIFIER);
+        Assert.assertEquals(1, queryResults.size());
+
+        QueryResultsRow queryResultsRow = queryResults.iterator().next();
+        Assert.assertThat(queryResultsRow.get("report"), instanceOf(WorkloadInventoryReportModel.class));
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
+        Assert.assertEquals("CentOS", workloadInventoryReportModel.getOsFamily());
+        Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(target -> target.toLowerCase().contains("Oracle JDK 11".toLowerCase())));
+        Assert.assertTrue(workloadInventoryReportModel.getWorkloads().stream().anyMatch(target -> target.toLowerCase().contains("Oracle Weblogic".toLowerCase())));
+        Assert.assertFalse(workloadInventoryReportModel.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
     }
 }
