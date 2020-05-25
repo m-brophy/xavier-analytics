@@ -5,9 +5,17 @@ import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInvento
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class HelperFunctions
 {
+    public static boolean valueMatchesAll(String value, String... match)
+    {
+        String descriptionLowerCase = value.toLowerCase();
+        return Stream.of(match).map(String::toLowerCase)
+                .allMatch(descriptionLowerCase::contains);
+    }
+
     public static int round(double value)
     {
         return (int) Math.round(value);
@@ -27,6 +35,10 @@ public class HelperFunctions
                 .orElse(false);
     }
 
+    /*
+    functionally, isUnsupported is the absence of any of the other OS categorizations being true
+    so we check they are all false to return true for this method
+     */
     public static boolean isUnsupportedOS(String osToCheck)
     {
         return !isUndetectedOS(osToCheck) && !isSupportedOS(osToCheck) && !isConvertibleOS(osToCheck);
@@ -34,7 +46,7 @@ public class HelperFunctions
 
     public static boolean isUndetectedOS(String osToCheck)
     {
-        return osToCheck == null || osToCheck.trim().isEmpty();
+        return osToCheck == null || osToCheck.trim().isEmpty() || osToCheck.equals(WorkloadInventoryReportModel.OS_NAME_DEFAULT_VALUE);
     }
 
     public enum OSSupport
