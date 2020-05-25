@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 55);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 56);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(11, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(12, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -91,7 +91,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Workloads
                 "Insights_Enabled", "SsaEnabled_System_Services_Present", "Workloads_Oracle_JDK_8_On_Linux",
                 // Target
-                "Target_RHV", "Target_OSP", "Target_OCP",
+                "Target_RHV", "Target_OSP", "Target_OCP", "Target_OpenJDK",
                 // Complexity
                 "No_Flag_Supported_OS"
         );
@@ -193,7 +193,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(10, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -1307,15 +1307,15 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Copy basic fields and agenda controller",
                 //ReasonableDefaults
                 "Fill 'Insights' field with reasonable default", "Fill 'OS' fields with reasonable default",
+                // OSFamily
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
+                // Workloads
+                "SsaEnabled_System_Services_Present",
                 // Target
                 "Target_None",
                 // Complexity
-                "Not_Detected_OS",
-                // Workloads
-                "SsaEnabled_System_Services_Present",
-                // OSFamily
-                "Fill 'osFamily' field with 'Other'"
+                "Not_Detected_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -1955,9 +1955,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // Target
                 "Target_RHV", "Target_OSP", "Target_OCP",
                 // Complexity
-                "No_Flag_Supported_OS",
-                // Workloads
-                "Workloads_Oracle_DB", "SsaEnabled_System_Services_Present"
+                "No_Flag_Supported_OS"
         );
 
         // retrieve the QueryResults that was available in the working memory from the results
@@ -3006,7 +3004,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Fill 'datacenter' field with reasonable default", "Fill 'cluster' field with reasonable default", "Fill 'host_name' field with reasonable default",
                 "Fill 'Insights' field with reasonable default",
                 // OSFamily
-                "Fill 'osFamily' field with 'Other'"
+                "Fill 'osFamily' field with 'Other'",
                 // Flags
                 // Workloads
                 "SsaDisabled_System_Services_Not_Present",
