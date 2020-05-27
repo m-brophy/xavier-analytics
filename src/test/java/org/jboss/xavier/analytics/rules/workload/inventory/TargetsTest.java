@@ -15,7 +15,7 @@ public class TargetsTest extends BaseTest {
 
     public TargetsTest() {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/Targets.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory", 6);
+                "org.jboss.xavier.analytics.rules.workload.inventory", 5);
     }
 
     @Test
@@ -119,8 +119,8 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
@@ -128,13 +128,7 @@ public class TargetsTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -206,20 +200,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -235,20 +224,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -264,20 +248,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -293,20 +272,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -351,20 +325,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -380,20 +349,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -409,20 +373,15 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Target_None");
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHV".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OSP".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("RHEL".toLowerCase())));
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -525,10 +484,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
-                "AgendaFocusForTest",
-                "Target_None"
+                "AgendaFocusForTest"
         );
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
@@ -536,10 +494,7 @@ public class TargetsTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -557,10 +512,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
-                "AgendaFocusForTest",
-                "Target_None"
+                "AgendaFocusForTest"
         );
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
@@ -568,10 +522,7 @@ public class TargetsTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -588,10 +539,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
-                "AgendaFocusForTest",
-                "Target_None"
+                "AgendaFocusForTest"
         );
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
@@ -599,10 +549,7 @@ public class TargetsTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
-        Assert.assertFalse(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
+        Assert.assertNull(report.getRecommendedTargetsIMS());
     }
 
     @Test
@@ -619,10 +566,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 "AgendaFocusForTest",
-                "Target_None",
                 "Target_OpenJDK"
         );
 
@@ -632,8 +578,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
         Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(2, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
     }
 
@@ -651,10 +596,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 "AgendaFocusForTest",
-                "Target_None",
                 "Target_OpenJDK"
         );
 
@@ -664,8 +608,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
         Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(2, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
     }
 
@@ -683,10 +626,9 @@ public class TargetsTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(3, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 "AgendaFocusForTest",
-                "Target_None",
                 "Target_OpenJDK"
         );
 
@@ -696,8 +638,7 @@ public class TargetsTest extends BaseTest {
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
         Assert.assertNotNull(report.getRecommendedTargetsIMS());
-        Assert.assertEquals(2, report.getRecommendedTargetsIMS().size());
-        Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("None".toLowerCase())));
+        Assert.assertEquals(1, report.getRecommendedTargetsIMS().size());
         Assert.assertTrue(report.getRecommendedTargetsIMS().stream().anyMatch(target -> target.toLowerCase().contains("OpenJDK".toLowerCase())));
     }
 }

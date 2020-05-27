@@ -83,18 +83,6 @@ rule "Target_OCP"
         }
 end
 
-rule "Target_None"
-    when
-        workloadInventoryReport : WorkloadInventoryReportModel(
-            eval(( isUnsupportedOS(osDescription)) || isUndetectedOS(osDescription))
-        )
-    then
-        modify(workloadInventoryReport)
-        {
-            addRecommendedTargetsIMS("None")
-        }
-end
-
 rule "Target_OpenJDK"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
