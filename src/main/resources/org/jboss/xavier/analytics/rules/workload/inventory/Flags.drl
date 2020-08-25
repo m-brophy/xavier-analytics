@@ -84,4 +84,32 @@ rule "Flag_Cpu_Affinity"
         }
 end
 
+rule "Flag_VM_Host_Affinity_Configured"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasVMAffinityConfig != null,
+            hasVMAffinityConfig == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME)
+        }
+end
+
+rule "Flag_Numa_Node_Affinity"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            numaNodeAffinityNotNull != null,
+            numaNodeAffinityNotNull == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME)
+        }
+end
+
 
