@@ -36,6 +36,7 @@ public class VMWorkloadInventoryModel
     private String version;
     private String host_name;
     private boolean cpuAffinityNotNull;
+    private boolean hasUEFIBoot;
 
     private Date scanRunDate;
 
@@ -253,5 +254,13 @@ public class VMWorkloadInventoryModel
 
     public void setCpuAffinityNotNull(boolean cpuAffinityNotNull) {
         this.cpuAffinityNotNull = cpuAffinityNotNull;
+    }
+
+    public boolean isHasUEFIBoot() {
+        return hasUEFIBoot;
+    }
+
+    public void setHasUEFIBoot(boolean hasUEFIBoot) {
+        this.hasUEFIBoot = hasUEFIBoot;
     }
 }

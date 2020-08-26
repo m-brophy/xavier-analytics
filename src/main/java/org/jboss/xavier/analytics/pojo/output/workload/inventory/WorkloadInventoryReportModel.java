@@ -22,6 +22,7 @@ public class WorkloadInventoryReportModel
     public static final String SHARED_DISK_FLAG_NAME = "Shared Disk";
     public static final String CPU_MEMORY_HOTPLUG_FLAG_NAME = "CPU/Memory hotplug";
     public static final String CPU_AFFINITY_FLAG_NAME = "CPU Affinity";
+    public static final String UEFI_BOOT_FLAG_NAME = "UEFI Boot";
 
     public static final String COMPLEXITY_EASY = "Easy";
     public static final String COMPLEXITY_MEDIUM = "Medium";

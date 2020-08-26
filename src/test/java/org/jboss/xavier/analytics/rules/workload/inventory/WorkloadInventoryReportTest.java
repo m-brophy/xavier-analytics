@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 58);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 59);
     }
 
     @Test
@@ -399,6 +399,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setNicsCount(5);
         vmWorkloadInventoryModel.setHasRdmDisk(true);
         vmWorkloadInventoryModel.setHasMemoryHotAdd(true);
+        vmWorkloadInventoryModel.setHasUEFIBoot(true);
         List<String> vmDiskFilenames = new ArrayList<>();
         vmDiskFilenames.add("/path/to/disk.vdmk");
         vmWorkloadInventoryModel.setVmDiskFilenames(vmDiskFilenames);
@@ -424,7 +425,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Map<String, Object> results = Utils.executeCommandsAndGetResults(kieSession, commands);
 
         // check that the number of rules fired is what you expect
-        Assert.assertEquals(8, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(9, results.get(NUMBER_OF_FIRED_RULE_KEY));
         // check the names of the rules fired are what you expect
         Utils.verifyRulesFiredNames(this.agendaEventListener,
                 // BasicFields
@@ -433,7 +434,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 // OSFamily
                 "RHEL_OSFamily",
                 // Flags
-                "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Memory_Add",
+                "Flag_Rdm_Disk", "Flag_Cpu_Memory_Hotplug_Memory_Add", "Flag_UEFI_Boot",
                 // Workloads
                 "SsaEnabled_System_Services_Present",
                 // Target
@@ -471,9 +472,10 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
-        Assert.assertEquals(2, flagsIMS.size());
+        Assert.assertEquals(3, flagsIMS.size());
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME));
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.CPU_MEMORY_HOTPLUG_FLAG_NAME));
+        Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.UEFI_BOOT_FLAG_NAME));
         // Targets
         Set<String> targets = workloadInventoryReportModel.getRecommendedTargetsIMS();
         Assert.assertEquals(1, targets.size());
