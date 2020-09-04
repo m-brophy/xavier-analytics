@@ -84,4 +84,18 @@ rule "Flag_Cpu_Affinity"
         }
 end
 
+rule "Flag_PassthroughDevice"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasPassthroughDevice != null,
+            hasPassthroughDevice == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.PASSTHROUGH_DEVICE_FLAG_NAME)
+        }
+end
+
 
