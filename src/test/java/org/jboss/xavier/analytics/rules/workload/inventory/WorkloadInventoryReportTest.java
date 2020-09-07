@@ -208,7 +208,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -275,7 +275,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -366,7 +366,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -388,7 +388,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         Assert.assertEquals("RHEL", workloadInventoryReportModel.getOsFamily());
     }
 
-    private void assertBasicWorkloadInventoryReportModel(WorkloadInventoryReportModel workloadInventoryReportModel) throws ParseException {
+    private void assertRHELWorkloadInventoryReportModel(WorkloadInventoryReportModel workloadInventoryReportModel) throws ParseException {
         // BasicFields
         Assert.assertEquals("IMS vCenter", workloadInventoryReportModel.getProvider());
         Assert.assertEquals("V2V-DC", workloadInventoryReportModel.getDatacenter());
@@ -491,7 +491,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -917,7 +917,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNull(flagsIMS);
@@ -998,7 +998,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1079,7 +1079,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1160,7 +1160,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1467,7 +1467,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         Set<String> flagsIMS = workloadInventoryReportModel.getFlagsIMS();
         Assert.assertNotNull(flagsIMS);
@@ -1547,7 +1547,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1624,7 +1624,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(4, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1702,7 +1702,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(4, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1780,7 +1780,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1857,7 +1857,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -1934,7 +1934,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2011,7 +2011,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2090,7 +2090,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2273,7 +2273,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         //
         Assert.assertEquals(WorkloadInventoryReportModel.INSIGHTS_ENABLED_DEFAULT_VALUE,workloadInventoryReportModel.getInsightsEnabled());
         // Flags
@@ -2354,7 +2354,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2432,7 +2432,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -2511,7 +2511,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3389,7 +3389,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3466,7 +3466,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3543,7 +3543,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3620,7 +3620,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3697,7 +3697,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3774,7 +3774,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
@@ -3859,7 +3859,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
         // Check that the object has exactly the fields that the rules tested should add/change
         WorkloadInventoryReportModel workloadInventoryReportModel = (WorkloadInventoryReportModel) queryResultsRow.get("report");
-        assertBasicWorkloadInventoryReportModel(workloadInventoryReportModel);
+        assertRHELWorkloadInventoryReportModel(workloadInventoryReportModel);
         // Flags
         // Targets
         Assert.assertEquals(3, workloadInventoryReportModel.getRecommendedTargetsIMS().size());
