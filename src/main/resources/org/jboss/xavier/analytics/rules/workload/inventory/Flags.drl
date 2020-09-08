@@ -87,7 +87,6 @@ end
 rule "Flag_UEFI_Boot"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasUEFIBoot != null,
             hasUEFIBoot == true
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
