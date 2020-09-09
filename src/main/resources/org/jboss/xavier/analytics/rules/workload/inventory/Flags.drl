@@ -73,8 +73,8 @@ end
 rule "Flag_Cpu_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            cpuAffinityNotNull != null,
-            cpuAffinityNotNull == true
+            eval(cpuAffinityNotNull != null &&
+            cpuAffinityNotNull == true)
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
@@ -87,8 +87,8 @@ end
 rule "Flag_VM_Host_Affinity_Configured"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            hasVMAffinityConfig != null,
-            hasVMAffinityConfig == true
+            eval(hasVMAffinityConfig != null &&
+            hasVMAffinityConfig == true)
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
@@ -101,8 +101,7 @@ end
 rule "Flag_Numa_Node_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            numaNodeAffinityNotNull != null,
-            numaNodeAffinityNotNull == true
+            numaNodeAffinity != null
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
