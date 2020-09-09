@@ -399,7 +399,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setNicsCount(5);
         vmWorkloadInventoryModel.setHasRdmDisk(true);
         vmWorkloadInventoryModel.setHasMemoryHotAdd(true);
-        vmWorkloadInventoryModel.setHasUEFIBoot(true);
+        vmWorkloadInventoryModel.setFirmware("EFI");
         List<String> vmDiskFilenames = new ArrayList<>();
         vmDiskFilenames.add("/path/to/disk.vdmk");
         vmWorkloadInventoryModel.setVmDiskFilenames(vmDiskFilenames);
