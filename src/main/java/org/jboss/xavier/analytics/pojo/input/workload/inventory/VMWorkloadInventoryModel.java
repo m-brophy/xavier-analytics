@@ -249,7 +249,7 @@ public class VMWorkloadInventoryModel
     }
 
 
-    public Boolean isCpuAffinityNotNull() {
+    public Boolean getCpuAffinityNotNull() {
         return cpuAffinityNotNull;
     }
 
@@ -265,7 +265,7 @@ public class VMWorkloadInventoryModel
         this.numaNodeAffinity = numaNodeAffinity;
     }
 
-    public Boolean isHasVMAffinityConfig() {
+    public Boolean getHasVMAffinityConfig() {
         return hasVMAffinityConfig;
     }
 
