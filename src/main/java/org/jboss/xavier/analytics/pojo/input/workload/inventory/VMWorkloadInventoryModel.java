@@ -1,6 +1,5 @@
 package org.jboss.xavier.analytics.pojo.input.workload.inventory;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -47,14 +46,58 @@ public class VMWorkloadInventoryModel
     private Boolean hasMemoryHotAdd;
     private Boolean hasCpuHotAdd;
     private Boolean hasCpuHotRemove;
+    private Boolean hasVmDrsConfig;
+    private Boolean hasVmHaConfig;
+    private Integer balloonedMemory;
+    private Boolean hasEncryptedDisk;
+    private Boolean hasOpaqueNetwork;
 
-    public VMWorkloadInventoryModel()
-    {
+    public VMWorkloadInventoryModel() {
         this.systemServicesNames = new ArrayList<>();
         this.files = new HashMap<>();
         this.vmDiskFilenames = new ArrayList<>();
         nicsCount = 0;
         diskSpace = new Long(0);
+    }
+
+    public Boolean getHasOpaqueNetwork() {
+        return hasOpaqueNetwork;
+    }
+
+    public void setHasOpaqueNetwork(Boolean hasOpaqueNetwork) {
+        this.hasOpaqueNetwork = hasOpaqueNetwork;
+    }
+
+    public Boolean getHasEncryptedDisk() {
+        return hasEncryptedDisk;
+    }
+
+    public void setHasEncryptedDisk(Boolean hasEncryptedDisk) {
+        this.hasEncryptedDisk = hasEncryptedDisk;
+    }
+
+    public Integer getBalloonedMemory() {
+        return balloonedMemory;
+    }
+
+    public void setBalloonedMemory(Integer balloonedMemory) {
+        this.balloonedMemory = balloonedMemory;
+    }
+
+    public Boolean getHasVmHaConfig() {
+        return hasVmHaConfig;
+    }
+
+    public void setHasVmHaConfig(Boolean hasVmHaConfig) {
+        this.hasVmHaConfig = hasVmHaConfig;
+    }
+
+    public Boolean getHasVmDrsConfig() {
+        return hasVmDrsConfig;
+    }
+
+    public void setHasVmDrsConfig(Boolean hasVmDrsConfig) {
+        this.hasVmDrsConfig = hasVmDrsConfig;
     }
 
     public String getProvider() {

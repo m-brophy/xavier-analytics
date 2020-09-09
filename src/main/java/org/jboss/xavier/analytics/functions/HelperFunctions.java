@@ -98,7 +98,13 @@ public class HelperFunctions
         RDM_DISK(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME, true, false),
         SHARED_DISK(WorkloadInventoryReportModel.SHARED_DISK_FLAG_NAME,true, true),
         CPU_MEMORY_HOTPLUG(WorkloadInventoryReportModel.CPU_MEMORY_HOTPLUG_FLAG_NAME, true, true),
-        CPU_AFFINITY(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME, false, true);
+        CPU_AFFINITY(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME, false, true),
+
+        VM_DRS_CONFIG(WorkloadInventoryReportModel.VM_DRS_CONFIG_FLAG_NAME, true, false),
+        VM_HA_CONFIG(WorkloadInventoryReportModel.VM_HA_CONFIG_FLAG_NAME, true, false),
+        BALLOONED_MEMORY(WorkloadInventoryReportModel.BALLOONED_MEMORY_FLAG_NAME, true, false),
+        ENCRYPTED_DISK(WorkloadInventoryReportModel.ENCRYPTED_DISK_FLAG_NAME, true, false),
+        OPAQUE_NETWORK(WorkloadInventoryReportModel.OPAQUE_NETWORK_FLAG_NAME, true, true);
 
         private final String name;
         private final boolean isUnsuitableForOSP;
