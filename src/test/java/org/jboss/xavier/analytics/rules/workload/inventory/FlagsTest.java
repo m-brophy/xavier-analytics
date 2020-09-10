@@ -354,7 +354,7 @@ public class FlagsTest extends BaseTest {
         facts.put("agendaGroup", "Flags");
 
         VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
-        vmWorkloadInventoryModel.setCpuAffinityNotNull(true);
+        vmWorkloadInventoryModel.setCpuAffinity(true);
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();

@@ -283,7 +283,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
         vmWorkloadInventoryModel.setScanRunDate(new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss.S").parse("2019-09-18T14:52:45.871Z"));
 
         //Flags
-        vmWorkloadInventoryModel.setCpuAffinityNotNull(true);
+        vmWorkloadInventoryModel.setCpuAffinity(true);
 
         List<String> systemServicesNames = new ArrayList<>();
         systemServicesNames.add("unix_service");

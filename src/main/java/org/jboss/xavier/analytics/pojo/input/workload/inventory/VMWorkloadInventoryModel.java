@@ -35,7 +35,7 @@ public class VMWorkloadInventoryModel
     private String product;
     private String version;
     private String host_name;
-    private Boolean cpuAffinityNotNull;
+    private Boolean cpuAffinity;
     private String numaNodeAffinity;
     private Boolean hasVMAffinityConfig;
 
@@ -249,12 +249,12 @@ public class VMWorkloadInventoryModel
     }
 
 
-    public Boolean getCpuAffinityNotNull() {
-        return cpuAffinityNotNull;
+    public Boolean getCpuAffinity() {
+        return cpuAffinity;
     }
 
-    public void setCpuAffinityNotNull(Boolean cpuAffinityNotNull) {
-        this.cpuAffinityNotNull = cpuAffinityNotNull;
+    public void setCpuAffinity(Boolean cpuAffinity) {
+        this.cpuAffinity = cpuAffinity;
     }
 
     public String getNumaNodeAffinity() {

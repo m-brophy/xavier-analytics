@@ -73,8 +73,7 @@ end
 rule "Flag_Cpu_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            cpuAffinityNotNull != null,
-            cpuAffinityNotNull == true
+            cpuAffinity != null
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
