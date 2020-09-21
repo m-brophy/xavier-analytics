@@ -374,6 +374,7 @@ public class FlagsTest extends BaseTest {
 
     }
 
+    @Test
     public void test_VMDRS_VMHA_BALLOONEDMEM_ENCRYPTEDDISK_OPAQUENETWORK_true() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
@@ -391,7 +392,7 @@ public class FlagsTest extends BaseTest {
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(6, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Flag_Opaque_Network", "Flag_Encrypted_Disk", "Flag_Ballooned_Memory", "Flag_VM_HA_Config", "Flag_VM_DRS_Config");
       
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
@@ -407,6 +408,7 @@ public class FlagsTest extends BaseTest {
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.OPAQUE_NETWORK_FLAG_NAME));
     }    
     
+    @Test
     public void test_VMDRS_VMHA_BALLOONEDMEM_ENCRYPTEDDISK_OPAQUENETWORK_false() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
@@ -424,17 +426,17 @@ public class FlagsTest extends BaseTest {
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
       
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Set<String> flagsIMS = report.getFlagsIMS();
-        Assert.assertEquals(0, flagsIMS.size());
+        Assert.assertNull(report.getFlagsIMS());
     }    
     
+    @Test
     public void test_VMDRS_VMHA_BALLOONEDMEM_ENCRYPTEDDISK_OPAQUENETWORK_null() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
@@ -452,15 +454,14 @@ public class FlagsTest extends BaseTest {
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
-        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
       
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Set<String> flagsIMS = report.getFlagsIMS();
-        Assert.assertEquals(0, flagsIMS.size());
+        Assert.assertNull(report.getFlagsIMS());
     }
 }
 
