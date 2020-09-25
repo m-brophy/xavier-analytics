@@ -17,7 +17,7 @@ public class FlagsTest extends BaseTest {
 
     public FlagsTest() {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/Flags.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory", 6);
+                "org.jboss.xavier.analytics.rules.workload.inventory", 8);
     }
 
     @Test
@@ -354,7 +354,7 @@ public class FlagsTest extends BaseTest {
         facts.put("agendaGroup", "Flags");
 
         VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
-        vmWorkloadInventoryModel.setCpuAffinityNotNull(true);
+        vmWorkloadInventoryModel.setCpuAffinity(true);
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
@@ -372,8 +372,64 @@ public class FlagsTest extends BaseTest {
         Assert.assertEquals(1, flagsIMS.size());
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME));
 
-    }    
-    
+    }
+
+    @Test
+    public void test_NumaNodeAffinityNotNull()
+    {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Flags");
+
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+        vmWorkloadInventoryModel.setNumaNodeAffinity("set");
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Flag_Numa_Node_Affinity");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Set<String> flagsIMS = report.getFlagsIMS();
+        Assert.assertEquals(1, flagsIMS.size());
+        Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME));
+
+    }
+
+    @Test
+    public void test_VmHostAffinityConfigured()
+    {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Flags");
+
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+        vmWorkloadInventoryModel.setHasVMAffinityConfig(true);
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Flag_VM_Host_Affinity_Configured");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Set<String> flagsIMS = report.getFlagsIMS();
+        Assert.assertEquals(1, flagsIMS.size());
+        Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME));
+
+    }
+
     @Test
     public void test_hasPassthroughDeviceTrue () {
         Map<String, Object> facts = new HashMap<>();
@@ -382,24 +438,24 @@ public class FlagsTest extends BaseTest {
 
         VMWorkloadInventoryModel vmWorkloadInventoryModel1 = new VMWorkloadInventoryModel();
         vmWorkloadInventoryModel1.setHasPassthroughDevice(true);
-        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel1);        
-        
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel1);
+
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
         Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Flag_PassthroughDevice");
-      
+
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
 
         Assert.assertEquals(1, reports.get(0).getFlagsIMS().size());
         Assert.assertTrue(reports.get(0).getFlagsIMS().contains(WorkloadInventoryReportModel.PASSTHROUGH_DEVICE_FLAG_NAME));
-        
+
     }
-    
+
     @Test
     public void test_hasPassthroughDeviceFalse () {
         Map<String, Object> facts = new HashMap<>();
@@ -433,21 +489,21 @@ public class FlagsTest extends BaseTest {
 
         VMWorkloadInventoryModel vmWorkloadInventoryModel1 = new VMWorkloadInventoryModel();
         vmWorkloadInventoryModel1.setHasPassthroughDevice(null);
-        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel1);        
-        
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel1);
+
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
         facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
         Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
         Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
-      
+
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
 
         Assert.assertNull(reports.get(0).getFlagsIMS());
-        
+
     }
 
 
