@@ -35,6 +35,7 @@ public class VMWorkloadInventoryModel {
     private Boolean cpuAffinity;
     private String numaNodeAffinity;
     private Boolean hasVMAffinityConfig;
+    private String firmware;
 
     private Date scanRunDate;
 
@@ -276,5 +277,13 @@ public class VMWorkloadInventoryModel {
 
     public void setHasVMAffinityConfig(Boolean hasVMAffinityConfig) {
         this.hasVMAffinityConfig = hasVMAffinityConfig;
+    }
+
+    public String getFirmware() {
+        return firmware;
+    }
+
+    public void setFirmware(String firmware) {
+        this.firmware = firmware;
     }
 }

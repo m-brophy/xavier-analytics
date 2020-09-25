@@ -123,4 +123,18 @@ rule "Flag_PassthroughDevice"
         }
 end
 
+rule "Flag_UEFI_Boot"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            firmware != null,
+            firmware.equalsIgnoreCase("EFI")
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.UEFI_BOOT_FLAG_NAME)
+        }
+end
+
 

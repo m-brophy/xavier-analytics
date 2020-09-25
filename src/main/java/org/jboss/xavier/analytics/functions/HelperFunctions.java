@@ -101,7 +101,8 @@ public class HelperFunctions
         CPU_AFFINITY(WorkloadInventoryReportModel.CPU_AFFINITY_FLAG_NAME, false, true),
         VM_AFFINITY_CONFIG(WorkloadInventoryReportModel.VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME, false, true),
         NUMA_NODE_AFFINITY(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME, false, true),
-        HAS_PASSTHROUGH_DEVICE(WorkloadInventoryReportModel.PASSTHROUGH_DEVICE_FLAG_NAME, false, true);
+        HAS_PASSTHROUGH_DEVICE(WorkloadInventoryReportModel.PASSTHROUGH_DEVICE_FLAG_NAME, false, true),
+        UEFI_BOOT(WorkloadInventoryReportModel.UEFI_BOOT_FLAG_NAME, false, true);
 
         private final String name;
         private final boolean isUnsuitableForOSP;
