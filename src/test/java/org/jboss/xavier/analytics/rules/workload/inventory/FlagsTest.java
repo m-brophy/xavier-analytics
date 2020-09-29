@@ -410,7 +410,7 @@ public class FlagsTest extends BaseTest {
         facts.put("agendaGroup", "Flags");
 
         VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
-        vmWorkloadInventoryModel.setHasVMAffinityConfig(true);
+        vmWorkloadInventoryModel.setHasVmAffinityConfig(true);
         facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
 
         WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
