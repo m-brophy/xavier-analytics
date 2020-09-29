@@ -47,6 +47,11 @@ public class VMWorkloadInventoryModel {
     private Boolean hasMemoryHotAdd;
     private Boolean hasCpuHotAdd;
     private Boolean hasCpuHotRemove;
+    private Boolean hasVmDrsConfig;
+    private Boolean hasVmHaConfig;
+    private Integer balloonedMemory;
+    private Boolean hasEncryptedDisk;
+    private Boolean hasOpaqueNetwork;
     private Boolean hasPassthroughDevice;
 
     public VMWorkloadInventoryModel() {
@@ -63,6 +68,46 @@ public class VMWorkloadInventoryModel {
 
     public void setHasPassthroughDevice(Boolean hasPassthroughDevice) {
         this.hasPassthroughDevice = hasPassthroughDevice;
+    }
+
+    public Boolean getHasOpaqueNetwork() {
+        return hasOpaqueNetwork;
+    }
+
+    public void setHasOpaqueNetwork(Boolean hasOpaqueNetwork) {
+        this.hasOpaqueNetwork = hasOpaqueNetwork;
+    }
+
+    public Boolean getHasEncryptedDisk() {
+        return hasEncryptedDisk;
+    }
+
+    public void setHasEncryptedDisk(Boolean hasEncryptedDisk) {
+        this.hasEncryptedDisk = hasEncryptedDisk;
+    }
+
+    public Integer getBalloonedMemory() {
+        return balloonedMemory;
+    }
+
+    public void setBalloonedMemory(Integer balloonedMemory) {
+        this.balloonedMemory = balloonedMemory;
+    }
+
+    public Boolean getHasVmHaConfig() {
+        return hasVmHaConfig;
+    }
+
+    public void setHasVmHaConfig(Boolean hasVmHaConfig) {
+        this.hasVmHaConfig = hasVmHaConfig;
+    }
+
+    public Boolean getHasVmDrsConfig() {
+        return hasVmDrsConfig;
+    }
+
+    public void setHasVmDrsConfig(Boolean hasVmDrsConfig) {
+        this.hasVmDrsConfig = hasVmDrsConfig;
     }
 
     public String getProvider() {
