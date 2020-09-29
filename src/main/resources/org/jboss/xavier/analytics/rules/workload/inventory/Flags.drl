@@ -69,7 +69,7 @@ rule "Flag_Cpu_Memory_Hotplug_Cpu_Remove"
             addFlagIMS(WorkloadInventoryReportModel.CPU_MEMORY_HOTPLUG_FLAG_NAME)
         }
 end
-        
+
 rule "Flag_Cpu_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
@@ -83,6 +83,7 @@ rule "Flag_Cpu_Affinity"
         }
 end
 
+
 rule "Flag_VM_Host_Affinity_Configured"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
@@ -93,10 +94,24 @@ rule "Flag_VM_Host_Affinity_Configured"
     then
         modify(workloadInventoryReport)
         {
-            addFlagIMS(WorkloadInventoryReportModel.VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME)
+          addFlagIMS(WorkloadInventoryReportModel.VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME)
         }
 end
 
+rule "Flag_VM_DRS_Config"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasVmDrsConfig != null,
+            hasVmDrsConfig == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+           addFlagIMS(WorkloadInventoryReportModel.VM_DRS_CONFIG_FLAG_NAME)
+        }
+end
+            
 rule "Flag_Numa_Node_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
@@ -106,7 +121,76 @@ rule "Flag_Numa_Node_Affinity"
     then
         modify(workloadInventoryReport)
         {
-            addFlagIMS(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME)
+           addFlagIMS(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME)
+        }
+end
+
+rule "Flag_VM_HA_Config"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasVmHaConfig != null,
+            hasVmHaConfig == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.VM_HA_CONFIG_FLAG_NAME)
+        }
+end
+
+rule "Flag_Ballooned_Memory"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            balloonedMemory != null,
+            balloonedMemory > 0
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.BALLOONED_MEMORY_FLAG_NAME)
+        }
+end
+
+rule "Flag_Encrypted_Disk"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasEncryptedDisk != null,
+            hasEncryptedDisk == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.ENCRYPTED_DISK_FLAG_NAME)
+        }
+end
+
+rule "Flag_Opaque_Network"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasOpaqueNetwork != null,
+            hasOpaqueNetwork == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport)
+        {
+            addFlagIMS(WorkloadInventoryReportModel.OPAQUE_NETWORK_FLAG_NAME)
+        }
+end
+
+rule "Flag_PassthroughDevice"
+    when
+        vmWorkloadInventoryModel : VMWorkloadInventoryModel(
+            hasPassthroughDevice != null,
+            hasPassthroughDevice == true
+        )
+        workloadInventoryReport : WorkloadInventoryReportModel()
+    then
+        modify(workloadInventoryReport) {
+            addFlagIMS(WorkloadInventoryReportModel.PASSTHROUGH_DEVICE_FLAG_NAME)
         }
 end
 

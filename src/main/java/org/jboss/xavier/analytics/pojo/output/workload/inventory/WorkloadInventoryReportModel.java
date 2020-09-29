@@ -24,6 +24,12 @@ public class WorkloadInventoryReportModel
     public static final String CPU_AFFINITY_FLAG_NAME = "CPU Affinity";
     public static final String VM_HOST_AFFINITY_CONFIGURED_FLAG_NAME = "VM/Host Affinity Configured";
     public static final String NUMA_NODE_AFFINITY_FLAG_NAME = "Numa Node Affinity";
+    public static final String VM_DRS_CONFIG_FLAG_NAME = "VMWare DRS";
+    public static final String VM_HA_CONFIG_FLAG_NAME = "VM HA";
+    public static final String BALLOONED_MEMORY_FLAG_NAME = "Ballooned memory";
+    public static final String ENCRYPTED_DISK_FLAG_NAME = "Encrypted Disk";
+    public static final String OPAQUE_NETWORK_FLAG_NAME = "Opaque Network";
+    public static final String PASSTHROUGH_DEVICE_FLAG_NAME = "Passthrough Device";
 
     public static final String COMPLEXITY_EASY = "Easy";
     public static final String COMPLEXITY_MEDIUM = "Medium";
@@ -38,7 +44,10 @@ public class WorkloadInventoryReportModel
     public static final Boolean INSIGHTS_ENABLED_DEFAULT_VALUE = false;
     public static final String OS_FAMILY_DEFAULT_VALUE = "Other";
 
-    public static final String TARGET_OCP = "OCP";
+    public static final String TARGET_RHV = "Red Hat Virtualization";
+    public static final String TARGET_OSP = "Red Hat OpenStack Platform";
+    public static final String TARGET_RHEL = "Red Hat Enterprise Linux";
+    public static final String TARGET_OCP = "Red Hat OpenShift Virtualization";
 
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "WORKLOADINVENTORYREPORTMODEL_ID_GENERATOR")
