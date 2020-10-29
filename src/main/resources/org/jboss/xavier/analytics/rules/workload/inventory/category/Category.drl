@@ -1,0 +1,73 @@
+package org.jboss.xavier.analytics.rules.workload.inventory.category;
+
+import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel
+
+import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainCriticalCategory;
+import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainWarningCategory;
+import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainInformationCategory;
+
+dialect "java"
+agenda-group "Category"
+lock-on-active true
+auto-focus false
+
+function boolean isCriticalCategory(WorkloadInventoryReportModel report)
+{
+    return doesFlagsCollectionContainCriticalCategory(report.getFlagsIMS());
+}
+
+function boolean isWarningCategory(WorkloadInventoryReportModel report)
+{
+    return doesFlagsCollectionContainWarningCategory(report.getFlagsIMS());
+}
+
+function boolean isInformationCategory(WorkloadInventoryReportModel report)
+{
+    return doesFlagsCollectionContainInformationCategory(report.getFlagsIMS());
+}
+
+
+
+rule "Category_Critical"
+    salience 1
+    when
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            isCriticalCategory(this)
+        )
+    then
+        modify(workloadInventoryReport)
+        {
+            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
+        }
+end
+
+
+rule "Category_Warning"
+    when
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            category == null,
+            isWarningCategory(this)
+        )
+    then
+        modify(workloadInventoryReport)
+        {
+            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
+        }
+end
+
+rule "Category_Information"
+    salience -1
+    when
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            flagsIMS != null,
+            category == null,
+            isInformationCategory(this)
+        )
+    then
+        modify(workloadInventoryReport)
+        {
+            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
+        }
+end

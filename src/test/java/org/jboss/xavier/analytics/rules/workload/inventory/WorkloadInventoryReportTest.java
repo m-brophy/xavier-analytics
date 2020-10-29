@@ -25,7 +25,7 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
 
     public WorkloadInventoryReportTest()
     {
-        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 68);
+        super("WorkloadInventoryKSession0", "org.jboss.xavier.analytics.rules.workload.inventory.*", 71);
     }
 
     @Test
@@ -5083,11 +5083,11 @@ public class WorkloadInventoryReportTest extends BaseIntegrationTest {
                 "Workloads_Websphere",
                 // Target
                 "Target_RHV",
-                "Target_OSP",
                 "Target_RHEL",
                 "Target_RedHatJBossEAP",
+                "SsaEnabled_System_Services_Present",
                 // Complexity
-                "No_Flag_Convertible_OS",
+                "One_Or_More_Flags_Convertible_OS",
                 "Flag_Opaque_Network",
                 "Flag_Encrypted_Disk",
                 "Flag_Ballooned_Memory",

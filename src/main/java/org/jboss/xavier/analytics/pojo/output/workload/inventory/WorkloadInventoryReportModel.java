@@ -51,6 +51,10 @@ public class WorkloadInventoryReportModel
     public static final String TARGET_RHEL = "Red Hat Enterprise Linux";
     public static final String TARGET_OCP = "Red Hat OpenShift Virtualization";
 
+    public static final String FLAG_CATEGORY_INFORMATION = "Information";
+    public static final String FLAG_CATEGORY_WARNING = "Warning";
+    public static final String FLAG_CATEGORY_CRITICAL = "Critical";
+
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "WORKLOADINVENTORYREPORTMODEL_ID_GENERATOR")
     private Long id;
@@ -84,6 +88,7 @@ public class WorkloadInventoryReportModel
     private Boolean ssaEnabled;
     private Boolean insightsEnabled;
     private String osFamily;
+    private String category;
 
     public WorkloadInventoryReportModel() {}
 
@@ -283,5 +288,13 @@ public class WorkloadInventoryReportModel
 
     public void setOsFamily(String osFamily) {
         this.osFamily = osFamily;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
