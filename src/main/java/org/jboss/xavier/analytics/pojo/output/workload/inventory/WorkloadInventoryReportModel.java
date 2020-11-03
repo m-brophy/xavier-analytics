@@ -88,7 +88,7 @@ public class WorkloadInventoryReportModel
     private Boolean ssaEnabled;
     private Boolean insightsEnabled;
     private String osFamily;
-    private String category;
+    private String vmCategory;
 
     public WorkloadInventoryReportModel() {}
 
@@ -290,11 +290,11 @@ public class WorkloadInventoryReportModel
         this.osFamily = osFamily;
     }
 
-    public String getCategory() {
-        return category;
+    public String getVmCategory() {
+        return vmCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setVmCategory(String category) {
+        this.vmCategory = category;
     }
 }

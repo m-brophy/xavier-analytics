@@ -38,7 +38,7 @@ public class CategoryTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNull(report.getCategory());
+        Assert.assertNull(report.getVmCategory());
 
     }
 
@@ -66,7 +66,7 @@ public class CategoryTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL, report.getCategory());
+        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL, report.getVmCategory());
 
     }
 
@@ -93,7 +93,7 @@ public class CategoryTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING, report.getCategory());
+        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING, report.getVmCategory());
 
     }
 
@@ -120,7 +120,7 @@ public class CategoryTest extends BaseTest {
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION, report.getCategory());
+        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION, report.getVmCategory());
 
     }
 }

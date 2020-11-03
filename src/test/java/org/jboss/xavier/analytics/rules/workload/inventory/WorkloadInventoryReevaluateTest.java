@@ -163,6 +163,6 @@ public class WorkloadInventoryReevaluateTest extends BaseIntegrationTest {
         assertEquals(targetsExpected.size(), targets.size());
         assertArrayEquals(targetsExpected.toArray(new String[0]), targets.toArray(new String[0]));
         // Category
-        assertEquals(categoryExpected, workloadInventoryReportModel.getCategory());
+        assertEquals(categoryExpected, workloadInventoryReportModel.getVmCategory());
     }
 }

@@ -26,7 +26,7 @@ rule "Category_Critical"
     then
         modify(workloadInventoryReport)
         {
-            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
+            setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         }
 end
 
@@ -35,13 +35,13 @@ rule "Category_Warning"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
-            category == null,
+            vmCategory == null,
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         )
     then
         modify(workloadInventoryReport)
         {
-            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
+            setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         }
 end
 
@@ -50,12 +50,12 @@ rule "Category_Information"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
-            category == null,
+            vmCategory == null,
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         )
     then
         modify(workloadInventoryReport)
         {
-            setCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
+            setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         }
 end
