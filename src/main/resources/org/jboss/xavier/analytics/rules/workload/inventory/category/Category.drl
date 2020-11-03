@@ -2,28 +2,16 @@ package org.jboss.xavier.analytics.rules.workload.inventory.category;
 
 import org.jboss.xavier.analytics.pojo.output.workload.inventory.WorkloadInventoryReportModel
 
-import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainCriticalCategory;
-import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainWarningCategory;
-import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainInformationCategory;
+import function org.jboss.xavier.analytics.functions.HelperFunctions.doesFlagsCollectionContainCategory;
 
 dialect "java"
 agenda-group "Category"
 lock-on-active true
 auto-focus false
 
-function boolean isCriticalCategory(WorkloadInventoryReportModel report)
+function boolean isCategoryPresent(WorkloadInventoryReportModel report, String categoryToCheckFor)
 {
-    return doesFlagsCollectionContainCriticalCategory(report.getFlagsIMS());
-}
-
-function boolean isWarningCategory(WorkloadInventoryReportModel report)
-{
-    return doesFlagsCollectionContainWarningCategory(report.getFlagsIMS());
-}
-
-function boolean isInformationCategory(WorkloadInventoryReportModel report)
-{
-    return doesFlagsCollectionContainInformationCategory(report.getFlagsIMS());
+    return doesFlagsCollectionContainCategory(report.getFlagsIMS(), categoryToCheckFor);
 }
 
 
@@ -33,7 +21,7 @@ rule "Category_Critical"
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
-            isCriticalCategory(this)
+            isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         )
     then
         modify(workloadInventoryReport)
@@ -48,7 +36,7 @@ rule "Category_Warning"
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
             category == null,
-            isWarningCategory(this)
+            isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         )
     then
         modify(workloadInventoryReport)
@@ -63,7 +51,7 @@ rule "Category_Information"
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
             category == null,
-            isInformationCategory(this)
+            isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         )
     then
         modify(workloadInventoryReport)

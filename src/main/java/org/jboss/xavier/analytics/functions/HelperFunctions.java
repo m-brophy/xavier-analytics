@@ -152,29 +152,9 @@ public class HelperFunctions
         return Arrays.stream(FlagUnsuitabilityForTargets.values()).anyMatch(value -> flagToCheck.toLowerCase().contains(value.getName().toLowerCase()) && value.isUnsuitableForOCP());
     }
 
-    public static boolean doesFlagsCollectionContainCriticalCategory(Set<String> flags) {
+    public static boolean doesFlagsCollectionContainCategory(Set<String> flags, String categoryToCheckFor) {
         if (flags.stream().anyMatch(flag -> Arrays.stream(FlagUnsuitabilityForTargets.values()).anyMatch
-                (value -> flag.toLowerCase().contains(value.getName().toLowerCase()) && WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL.equals(value.getCategoryLevel()))))
-        {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean doesFlagsCollectionContainWarningCategory(Set<String> flags) {
-        if (flags.stream().anyMatch(flag -> Arrays.stream(FlagUnsuitabilityForTargets.values()).anyMatch
-                (value -> flag.toLowerCase().contains(value.getName().toLowerCase()) && WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING.equals(value.getCategoryLevel()))))
-        {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean doesFlagsCollectionContainInformationCategory(Set<String> flags) {
-        if (flags.stream().anyMatch(flag -> Arrays.stream(FlagUnsuitabilityForTargets.values()).anyMatch
-                (value -> flag.toLowerCase().contains(value.getName().toLowerCase()) && WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION.equals(value.getCategoryLevel()))))
+                (value -> flag.toLowerCase().contains(value.getName().toLowerCase()) && categoryToCheckFor.equals(value.getCategoryLevel()))))
         {
             return true;
         } else {
