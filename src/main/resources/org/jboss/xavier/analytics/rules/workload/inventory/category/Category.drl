@@ -17,7 +17,7 @@ function boolean isCategoryPresent(WorkloadInventoryReportModel report, String c
 
 
 rule "Category_Critical"
-    salience 1
+    salience 2
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
@@ -32,6 +32,7 @@ end
 
 
 rule "Category_Warning"
+salience 1
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
@@ -46,7 +47,7 @@ rule "Category_Warning"
 end
 
 rule "Category_Information"
-    salience -1
+    salience 0
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             flagsIMS != null,
@@ -62,7 +63,7 @@ end
 
 
 rule "Category_Suitable"
-    salience -2
+    salience -1
     when
         workloadInventoryReport : WorkloadInventoryReportModel(
             vmCategory == null

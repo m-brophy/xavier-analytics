@@ -44,6 +44,34 @@ public class CategoryTest extends BaseTest {
     }
 
     @Test
+    public void testNullFlagsSuitableCategory() {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Category");
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        workloadInventoryReportModel.setOsDescription("Red Hat Enterprise Linux v7.6");
+        workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.RDM_DISK_FLAG_NAME);
+        workloadInventoryReportModel.addFlagIMS(WorkloadInventoryReportModel.CPU_MEMORY_HOTPLUG_FLAG_NAME);
+
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Category_Suitable");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_SUITABLE, report.getVmCategory());
+
+
+    }
+
+    @Test
     public void testCriticalCategory() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
