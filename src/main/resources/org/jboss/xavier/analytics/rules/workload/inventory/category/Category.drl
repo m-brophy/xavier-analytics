@@ -59,3 +59,17 @@ rule "Category_Information"
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         }
 end
+
+
+rule "Category_Suitable"
+    salience -2
+    when
+        workloadInventoryReport : WorkloadInventoryReportModel(
+            vmCategory == null
+        )
+    then
+        modify(workloadInventoryReport)
+        {
+            setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_SUITABLE)
+        }
+end

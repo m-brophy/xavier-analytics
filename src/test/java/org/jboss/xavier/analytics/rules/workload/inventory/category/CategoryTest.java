@@ -13,11 +13,11 @@ import org.kie.api.io.ResourceType;
 public class CategoryTest extends BaseTest {
     public CategoryTest() {
         super("/org/jboss/xavier/analytics/rules/workload/inventory/category/Category.drl", ResourceType.DRL,
-                "org.jboss.xavier.analytics.rules.workload.inventory.category", 3);
+                "org.jboss.xavier.analytics.rules.workload.inventory.category", 4);
     }
 
     @Test
-    public void testNullCategory() {
+    public void testSuitableCategory() {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
         facts.put("agendaGroup", "Category");
@@ -30,15 +30,16 @@ public class CategoryTest extends BaseTest {
 
         Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
 
-        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
-        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
+        Assert.assertEquals(2, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest", "Category_Suitable");
 
         List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
 
         // just one report has to be created
         Assert.assertEquals(1, reports.size());
         WorkloadInventoryReportModel report = reports.get(0);
-        Assert.assertNull(report.getVmCategory());
+        Assert.assertEquals(WorkloadInventoryReportModel.FLAG_CATEGORY_SUITABLE, report.getVmCategory());
+
 
     }
 

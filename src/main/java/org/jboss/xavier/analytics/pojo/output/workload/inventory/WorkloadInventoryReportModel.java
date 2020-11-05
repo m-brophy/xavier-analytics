@@ -51,6 +51,7 @@ public class WorkloadInventoryReportModel
     public static final String TARGET_RHEL = "Red Hat Enterprise Linux";
     public static final String TARGET_OCP = "Red Hat OpenShift Virtualization";
 
+    public static final String FLAG_CATEGORY_SUITABLE = "Suitable";
     public static final String FLAG_CATEGORY_INFORMATION = "Information";
     public static final String FLAG_CATEGORY_WARNING = "Warning";
     public static final String FLAG_CATEGORY_CRITICAL = "Critical";
