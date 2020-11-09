@@ -11,6 +11,7 @@ auto-focus false
 
 function boolean isCategoryPresent(WorkloadInventoryReportModel report, String categoryToCheckFor)
 {
+    System.out.println("VM checking Category. VM: " + report.getVmName() + " Category: " + categoryToCheckFor);
     return doesFlagsCollectionContainCategory(report.getFlagsIMS(), categoryToCheckFor);
 }
 
