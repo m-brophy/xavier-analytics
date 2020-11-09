@@ -24,8 +24,10 @@ rule "Category_Critical"
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         )
     then
+    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: CRITICAL");
         modify(workloadInventoryReport)
         {
+
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         }
 end
@@ -40,8 +42,10 @@ salience 1
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         )
     then
+    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: WARNING");
         modify(workloadInventoryReport)
         {
+
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         }
 end
@@ -55,8 +59,10 @@ rule "Category_Information"
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         )
     then
+    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: INFORMATION");
         modify(workloadInventoryReport)
         {
+
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         }
 end
@@ -69,6 +75,7 @@ rule "Category_Suitable"
             vmCategory == null
         )
     then
+            System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: SUITABLE");
         modify(workloadInventoryReport)
         {
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_SUITABLE)
