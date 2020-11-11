@@ -153,15 +153,11 @@ public class HelperFunctions
     }
 
     public static boolean doesFlagsCollectionContainCategory(Set<String> flags, String categoryToCheckFor) {
-        flags.stream().forEach(flag -> System.out.println("flag: " + flag ));
-        System.out.println("searching for category: " + categoryToCheckFor );
         if (flags.stream().anyMatch(flag -> Arrays.stream(FlagUnsuitabilityForTargets.values()).anyMatch
                 (value -> flag.toLowerCase().contains(value.getName().toLowerCase()) && categoryToCheckFor.equals(value.getCategoryLevel()))))
         {
-            System.out.println("Found" );
             return true;
         } else {
-            System.out.println("Not Found");
             return false;
         }
     }

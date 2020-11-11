@@ -11,7 +11,6 @@ auto-focus false
 
 function boolean isCategoryPresent(WorkloadInventoryReportModel report, String categoryToCheckFor)
 {
-    System.out.println("VM checking Category. VM: " + report.getVmName() + " Category: " + categoryToCheckFor);
     return doesFlagsCollectionContainCategory(report.getFlagsIMS(), categoryToCheckFor);
 }
 
@@ -25,10 +24,8 @@ rule "Category_Critical"
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         )
     then
-    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: CRITICAL");
         modify(workloadInventoryReport)
         {
-
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_CRITICAL)
         }
 end
@@ -43,10 +40,8 @@ salience 1
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         )
     then
-    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: WARNING");
         modify(workloadInventoryReport)
         {
-
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_WARNING)
         }
 end
@@ -60,7 +55,6 @@ rule "Category_Information"
             isCategoryPresent(this, WorkloadInventoryReportModel.FLAG_CATEGORY_INFORMATION)
         )
     then
-    System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: INFORMATION");
         modify(workloadInventoryReport)
         {
 
@@ -76,7 +70,6 @@ rule "Category_Suitable"
             vmCategory == null
         )
     then
-            System.out.println("VM Category rule fired. VM: " + workloadInventoryReport.getVmName() + " Category: SUITABLE");
         modify(workloadInventoryReport)
         {
             setVmCategory(WorkloadInventoryReportModel.FLAG_CATEGORY_SUITABLE)
