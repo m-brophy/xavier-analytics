@@ -375,6 +375,33 @@ public class FlagsTest extends BaseTest {
     }
 
     @Test
+    public void test_CpuAffinityEmpty()
+    {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Flags");
+
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+        vmWorkloadInventoryModel.setCpuAffinity("");
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Set<String> flagsIMS = report.getFlagsIMS();
+        Assert.assertNull(flagsIMS);
+
+    }
+
+    @Test
     public void test_CpuAffinityNull()
     {
         Map<String, Object> facts = new HashMap<>();
@@ -453,7 +480,7 @@ public class FlagsTest extends BaseTest {
     }
 
     @Test
-    public void test_NumaNodeAffinityNotNull()
+    public void test_NumaNodeAffinitySet()
     {
         Map<String, Object> facts = new HashMap<>();
         // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
@@ -476,6 +503,32 @@ public class FlagsTest extends BaseTest {
         Set<String> flagsIMS = report.getFlagsIMS();
         Assert.assertEquals(1, flagsIMS.size());
         Assert.assertTrue(flagsIMS.contains(WorkloadInventoryReportModel.NUMA_NODE_AFFINITY_FLAG_NAME));
+
+    }
+
+    @Test
+    public void test_NumaNodeAffinityNotSet()
+    {
+        Map<String, Object> facts = new HashMap<>();
+        // always add a String fact with the name of the agenda group defined in the DRL file (e.g. "SourceCosts")
+        facts.put("agendaGroup", "Flags");
+        VMWorkloadInventoryModel vmWorkloadInventoryModel = new VMWorkloadInventoryModel();
+        vmWorkloadInventoryModel.setNumaNodeAffinity("");
+        facts.put("vmWorkloadInventoryModel", vmWorkloadInventoryModel);
+
+        WorkloadInventoryReportModel workloadInventoryReportModel = new WorkloadInventoryReportModel();
+        facts.put("workloadInventoryReportModel",workloadInventoryReportModel);
+
+        Map<String, Object> results = createAndExecuteCommandsAndGetResults(facts);
+        Assert.assertEquals(1, results.get(NUMBER_OF_FIRED_RULE_KEY));
+        Utils.verifyRulesFiredNames(this.agendaEventListener, "AgendaFocusForTest");
+
+        List<WorkloadInventoryReportModel> reports = Utils.extractModels(GET_OBJECTS_KEY, results, WorkloadInventoryReportModel.class);
+        // just one report has to be created
+        Assert.assertEquals(1, reports.size());
+        WorkloadInventoryReportModel report = reports.get(0);
+        Set<String> flagsIMS = report.getFlagsIMS();
+        Assert.assertNull(flagsIMS);
 
     }
 

@@ -73,7 +73,8 @@ end
 rule "Flag_Cpu_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            cpuAffinity != null
+            cpuAffinity != null,
+            cpuAffinity.trim().length() > 0
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
@@ -145,7 +146,8 @@ end
 rule "Flag_Numa_Node_Affinity"
     when
         vmWorkloadInventoryModel : VMWorkloadInventoryModel(
-            numaNodeAffinity != null
+            numaNodeAffinity != null,
+            numaNodeAffinity.trim().length() > 0
         )
         workloadInventoryReport : WorkloadInventoryReportModel()
     then
